@@ -33,13 +33,25 @@ public abstract class Piece
 		return true;
 	}
 
-	public abstract boolean deplacer(int x, int y);
+	public abstract boolean peutDeplacer(int x, int y);
+
+	public boolean deplacer(int x, int y)
+	{
+		if (this.peutDeplacer(x, y)) return false;
+
+		this.x = x;
+		this.y = y;
+
+		return true;
+	}
 	
 	public abstract char getSymbole();
 
-	public int getX() { return x; }
+	public int  getX      () { return this.x;       }
 
-	public int getY() { return y; }
+	public int  getY      () { return this.y;       }
+
+	public char getCouleur() { return this.couleur; }
 
 	public String toString()
 	{

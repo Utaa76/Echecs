@@ -7,7 +7,7 @@ public class Roi extends Piece
 		super(x, y, couleur);
 	}
 
-	public boolean deplacer(int x, int y)
+	public boolean peutDeplacer(int x, int y)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
@@ -23,5 +23,5 @@ public class Roi extends Piece
 		return false;
 	}
 
-	public char getSymbole() { return 'P'; }
+	public char getSymbole() { return 'R'; }
 }
