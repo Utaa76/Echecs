@@ -11,9 +11,9 @@ public abstract class Piece
 	protected int                  y;
 	protected char                 couleur;
 	protected ArrayList<Mouvement> alMouvs;
-	protected ArrayList<Piece>     alPiece;
+	protected Jeu                  jeu;
 
-	public Piece(int x, int y, char couleur)
+	public Piece(int x, int y, char couleur, Jeu jeu)
 	{
 		this.x = x;
 		this.y = y;
@@ -22,15 +22,7 @@ public abstract class Piece
 		else                                                 this.couleur = Piece.BLANC;
 
 		this.alMouvs = new ArrayList<>();
-		this.alPiece = new ArrayList<>();
-	}
-
-	public boolean ajouterPiece(Piece p)
-	{
-		if (p != null && p != this) return false;
-
-		this.alPiece.add(p);
-		return true;
+		this.jeu     = jeu;
 	}
 
 	public abstract boolean peutDeplacer(int x, int y);

@@ -2,17 +2,17 @@ package echecs;
 
 public class Tour extends Piece
 {
-	public Tour(int x, int y, char couleur)
+	public Tour(int x, int y, char couleur, Jeu jeu)
 	{
-		super(x, y, couleur);
+		super(x, y, couleur, jeu);
 	}
 
 	public boolean peutDeplacer(int x, int y)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
-		for (Piece p : this.alPiece)
-			if (p.getX() == x && p.getY() == y && p.getCouleur() == this.couleur) return false;
+		Piece p = jeu.getPiece(x, y);
+		if (p != null && p.getCouleur() == this.couleur) return false;
 
 		for (int i = 1 ; i < Jeu.TAILLE ; i++)
 		{
@@ -28,9 +28,14 @@ public class Tour extends Piece
 
 	public boolean verifierChemin(int x, int y)
 	{
-		for (int i = 0, j = 0 ; i == this.x - x && j == this.y - y ; i++, j++)
-			for (Piece p : this.alPiece)
-				if (p.getX() == this.x + i && p.getY() == this.y + j) return false;
+		for (int i = 1 ; i != Math.abs((this.x - x) + (this.y - y)) ; i++)
+		{
+			System.out.println("test = " + (this.x - x) + (this.y - y));
+			if (this.x - x == 0 && this.jeu.getPiece(this.x, this.y + i) != null) return false;
+			System.out.println("test2");
+			if (this.y - y == 0 && this.jeu.getPiece(this.x + 1, this.y) != null) return false;
+			System.out.println("test3");
+		}
 
 		return true;
 	}

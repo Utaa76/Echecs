@@ -30,24 +30,24 @@ public class Jeu
 				if (y == 0 || y == Jeu.TAILLE-1)
 				{
 					if (x == 0 || x == Jeu.TAILLE-1)
-						p = new Tour(x, y, couleur);
+						p = new Tour(x, y, couleur, this);
 
 					if (x == 1 || x == Jeu.TAILLE-2)
-						p = new Cavalier(x, y, couleur);
+						p = new Cavalier(x, y, couleur, this);
 
 					if (x == 2 || x == Jeu.TAILLE-3)
-						p = new Fou(x, y, couleur);
+						p = new Fou(x, y, couleur, this);
 
 					if (x == 3)
-						p = new Roi(x, y, couleur);
+						p = new Roi(x, y, couleur, this);
 					
 					if (x == 4)
-						p = new Dame(x, y, couleur);
+						p = new Dame(x, y, couleur, this);
 
 				}
 
 				if (y == 1 || y == Jeu.TAILLE-2)
-					p = new Pion(x, y, couleur);
+					p = new Pion(x, y, couleur, this);
 
 				if (p != null)
 				{
@@ -98,7 +98,24 @@ public class Jeu
 		Jeu j = new Jeu();
 		System.out.println(j);
 
-		System.out.println(j.deplacer(j.getPiece(3, 1), 1, 2));
+		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 3));
+		System.out.println(j);
+
+		// Déplacement du Roi
+		System.out.println(j.deplacer(j.getPiece(3, 0), 3, 1));
+		System.out.println(j);
+
+		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(0, 1), 0, 3));
+		System.out.println(j);
+
+		// Déplacement de la tour
+		System.out.println(j.deplacer(j.getPiece(0, 0), 0, 2));
+		System.out.println(j);
+
+		// Déplacement de la tour
+		System.out.println(j.deplacer(j.getPiece(0, 2), 7, 2));
 		System.out.println(j);
 	}
 }
