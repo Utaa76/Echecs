@@ -11,6 +11,9 @@ public class Cavalier extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
+		Piece p = jeu.getPiece(x, y);
+		if (p != null && p.getCouleur() == this.couleur) return false;
+
 		if (this.x + 1 == x && this.y + 2 == y ||
 		    this.x + 1 == x && this.y - 2 == y ||
 		    this.x - 1 == x && this.y + 2 == y ||

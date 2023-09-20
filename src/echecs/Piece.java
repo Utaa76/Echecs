@@ -29,7 +29,7 @@ public abstract class Piece
 
 	public boolean deplacer(int x, int y)
 	{
-		if (this.peutDeplacer(x, y)) return false;
+		if (!this.peutDeplacer(x, y)) return false;
 
 		this.x = x;
 		this.y = y;
@@ -47,6 +47,6 @@ public abstract class Piece
 
 	public String toString()
 	{
-		return "" + this.getSymbole();
+		return this.couleur == Piece.BLANC ? ("" + this.getSymbole()).toLowerCase() : "" + this.getSymbole();
 	}
 }

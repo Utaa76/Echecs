@@ -59,17 +59,25 @@ public class Jeu
 
 	public String toString()
 	{
-		String sRet = "";
+		String sRet = "+---+---+---+---+---+---+---+---+\n";
 
 		for (int j = Jeu.TAILLE-1 ; j >= 0 ; j--)
 		{
 			for (int i = 0 ; i < Jeu.TAILLE ; i++)
 			{
-				if (this.plateau[i][j] != null) sRet += this.plateau[i][j].toString();
-				else                            sRet += " ";
+				if (i == 0)
+				{
+					if (this.plateau[i][j] != null) sRet += "| " + this.plateau[i][j].toString() + " |";
+					else                            sRet += "|   |";
+				}
+				else 
+				{
+					if (this.plateau[i][j] != null) sRet += " " + this.plateau[i][j].toString() + " |";
+					else                            sRet += "   |";
+				}
 			}
 
-			sRet += "\n";
+			sRet += "\n+---+---+---+---+---+---+---+---+\n";
 		}
 
 		return sRet;
@@ -116,6 +124,18 @@ public class Jeu
 
 		// Déplacement de la tour
 		System.out.println(j.deplacer(j.getPiece(0, 2), 7, 2));
+		System.out.println(j);
+
+		// Déplacement de la tour
+		System.out.println(j.deplacer(j.getPiece(7, 2), 7, 1));
+		System.out.println(j);
+
+		// Déplacement du cavalier
+		System.out.println(j.deplacer(j.getPiece(6, 0), 7, 2));
+		System.out.println(j);
+
+		// Déplacement du cavalier
+		System.out.println(j.deplacer(j.getPiece(6, 0), 5, 2));
 		System.out.println(j);
 	}
 }
