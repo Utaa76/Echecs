@@ -101,6 +101,19 @@ public class Jeu
 		return this.plateau[x][y];
 	}
 
+	public ArrayList<Piece> getAlPiece()
+	{
+		return this.alPiece;
+	}
+
+	public Piece getRoi(char couleur)
+	{
+		for (Piece p : this.alPiece)
+			if (p instanceof Roi && p.getCouleur() == couleur) return p;
+
+		return null;
+	}
+
 	public static void main(String[] args)
 	{
 		Jeu j = new Jeu();
@@ -176,6 +189,42 @@ public class Jeu
 
 		// Déplacement de la dame
 		System.out.println(j.deplacer(j.getPiece(0, 0), 2, 2));
+		System.out.println(j);
+
+		// Déplacement de la dame
+		System.out.println(j.deplacer(j.getPiece(2, 2), 2, 6));
+		System.out.println(j);
+
+		// Déplacement du roi Noir
+		System.out.println(j.deplacer(j.getPiece(3, 7), 2, 6));
+		System.out.println(j);
+
+		// Déplacement du cavalier Noir
+		System.out.println(j.deplacer(j.getPiece(1, 7), 2, 5));
+		System.out.println(j);
+
+		// Déplacement du pion Noir
+		System.out.println(j.deplacer(j.getPiece(0, 6), 0, 4));
+		System.out.println(j);
+
+		// Déplacement du pion Noir
+		System.out.println(j.deplacer(j.getPiece(0, 4), 0, 3));
+		System.out.println(j);
+
+		// Déplacement du pion Noir
+		System.out.println(j.deplacer(j.getPiece(0, 4), 1, 3));
+		System.out.println(j);
+
+		// Déplacement du cavalier Noir
+		System.out.println(j.deplacer(j.getPiece(2, 5), 3, 3));
+		System.out.println(j);
+
+		// Déplacement du pion Noir
+		System.out.println(j.deplacer(j.getPiece(3, 6), 3, 5));
+		System.out.println(j);
+
+		// Déplacement de la dame
+		System.out.println(j.deplacer(j.getPiece(4, 7), 1, 4));
 		System.out.println(j);
 	}
 }

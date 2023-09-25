@@ -1,5 +1,7 @@
 package echecs;
 
+import java.util.ArrayList;
+
 public class Roi extends Piece
 {
 	public Roi(int x, int y, char couleur, Jeu jeu)
@@ -27,4 +29,15 @@ public class Roi extends Piece
 	}
 
 	public char getSymbole() { return 'R'; }
+
+	public boolean echec()
+	{
+		ArrayList<Piece> alPiece = this.jeu.getAlPiece();
+
+		for (Piece p : alPiece)
+			if (p.getCouleur() != this.couleur)
+				if (p.peutDeplacer(this.x, this.y)) return true;
+
+		return false;
+	}
 }
