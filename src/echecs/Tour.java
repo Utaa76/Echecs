@@ -28,10 +28,11 @@ public class Tour extends Piece
 
 	public boolean verifierChemin(int x, int y)
 	{
-		for (int i = 1 ; i != Math.abs((this.x - x) + (this.y - y)) ; i++)
+		int ratio = x - this.x + y - this.y;
+		for (int i = ratio > 0 ? 1 : -1 ; i != ratio ; i = ratio > 0 ? i + 1 : i - 1)
 		{
 			if (this.x - x == 0 && this.jeu.getPiece(this.x, this.y + i) != null) return false;
-			if (this.y - y == 0 && this.jeu.getPiece(this.x + 1, this.y) != null) return false;
+			if (this.y - y == 0 && this.jeu.getPiece(this.x + i, this.y) != null) return false;
 		}
 
 		return true;

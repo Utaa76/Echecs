@@ -31,6 +31,8 @@ public abstract class Piece
 	{
 		if (!this.peutDeplacer(x, y)) return false;
 
+		this.alMouvs.add(new Mouvement(this.x, this.y, x, y));
+
 		this.x = x;
 		this.y = y;
 

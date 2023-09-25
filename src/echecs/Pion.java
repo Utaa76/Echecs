@@ -14,8 +14,8 @@ public class Pion extends Piece
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
-		if (this.couleur == Piece.BLANC) return this.x == x && this.y+1 == y || this.x == x && this.y+2 == y;
-		if (this.couleur == Piece.NOIR ) return this.x == x && this.y+1 == y || this.y+2 == y;
+		if (this.couleur == Piece.BLANC) return this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty());
+		if (this.couleur == Piece.NOIR ) return this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty());
 
 		return false;
 	}

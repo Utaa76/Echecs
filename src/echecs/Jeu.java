@@ -137,5 +137,45 @@ public class Jeu
 		// Déplacement du cavalier
 		System.out.println(j.deplacer(j.getPiece(6, 0), 5, 2));
 		System.out.println(j);
+
+		// Déplacement du roi
+		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 2));
+		System.out.println(j);
+
+		// Déplacement du cavalier
+		System.out.println(j.deplacer(j.getPiece(1, 0), 3, 1));
+		System.out.println(j);
+
+		// Déplacement du pion 2
+		System.out.println(j.deplacer(j.getPiece(1, 1), 1, 2));
+		System.out.println(j);
+
+		// Déplacement du pion 2
+		System.out.println(j.deplacer(j.getPiece(1, 2), 1, 4));
+		System.out.println(j);
+
+		// Déplacement du fou
+		System.out.println(j.deplacer(j.getPiece(2, 0), 0, 2));
+		System.out.println(j);
+
+		// Déplacement du fou
+		System.out.println(j.deplacer(j.getPiece(0, 2), 2, 4));
+		System.out.println(j);
+
+		// Déplacement du fou
+		System.out.println(j.deplacer(j.getPiece(2, 4), 4, 2));
+		System.out.println(j);
+
+		// Déplacement du fou
+		System.out.println(j.deplacer(j.getPiece(2, 4), 1, 3));
+		System.out.println(j);
+
+		// Déplacement de la dame
+		System.out.println(j.deplacer(j.getPiece(4, 0), 0, 0));
+		System.out.println(j);
+
+		// Déplacement de la dame
+		System.out.println(j.deplacer(j.getPiece(0, 0), 2, 2));
+		System.out.println(j);
 	}
 }

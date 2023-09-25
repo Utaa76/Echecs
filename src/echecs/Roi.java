@@ -21,6 +21,8 @@ public class Roi extends Piece
 
 		//TODO: condition du cas en échec
 
+		//TODO: le roque
+
 		return false;
 	}
 
