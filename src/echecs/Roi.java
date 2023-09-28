@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Roi extends Piece
 {
+	private boolean isEchec = false;
+
 	public Roi(int x, int y, char couleur, Jeu jeu)
 	{
 		super(x, y, couleur, jeu);
@@ -24,20 +26,40 @@ public class Roi extends Piece
 		//TODO: condition du cas en échec
 
 		//TODO: le roque
+		// if (this.x+2 == x && this.y == y && this.jeu.getPiece(x+1, this.y).alMouvs.isEmpty());
+		// {
+		// 	this.jeu.getPiece(x+1, this.y).deplacer(this.x+1, this.y);
+		// 	return true;
+		// }
+
+		// if (this.x+2 == x && this.y == y && this.jeu.getPiece(x+1, this.y).alMouvs.isEmpty());
+		// {
+		// 	this.jeu.getPiece(x+1, this.y).deplacer(this.x+1, this.y);
+		// 	return true;
+		// }
 
 		return false;
 	}
 
 	public char getSymbole() { return 'R'; }
 
-	public boolean echec()
+	public void calculEchec()
 	{
 		ArrayList<Piece> alPiece = this.jeu.getAlPiece();
 
 		for (Piece p : alPiece)
-			if (p.getCouleur() != this.couleur)
-				if (p.peutDeplacer(this.x, this.y)) return true;
+			if (p.getCouleur() != this.couleur && p.peutDeplacer(this.x, this.y))
+			{
+				this.isEchec = true;
+				//System.out.println(p.toStringEvolved());
+				return;
+			}
+		
+		this.isEchec = false;
+	}
 
-		return false;
+	public boolean isEchec()
+	{
+		return this.isEchec;
 	}
 }

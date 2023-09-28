@@ -31,6 +31,8 @@ public abstract class Piece
 	{
 		if (!this.peutDeplacer(x, y)) return false;
 
+		//if ((this.jeu.getRoi(this.couleur)).echec()) return false;
+
 		this.alMouvs.add(new Mouvement(this.x, this.y, x, y));
 
 		this.x = x;
@@ -50,5 +52,10 @@ public abstract class Piece
 	public String toString()
 	{
 		return this.couleur == Piece.BLANC ? ("" + this.getSymbole()).toLowerCase() : "" + this.getSymbole();
+	}
+
+	public String toStringEvolved()
+	{
+		return this.couleur == Piece.BLANC ? ("" + this.getSymbole()).toLowerCase() + String.format("x:%d y:%d", this.x, this.y) : "" + this.getSymbole() + String.format("x:%d y:%d", this.x, this.y);
 	}
 }

@@ -90,10 +90,19 @@ public class Jeu
 			this.plateau[p.getX()][p.getY()] = null;
 			p.deplacer(x, y);
 			this.plateau[x][y] = p;
+
+			this.getRoi(Piece.BLANC).calculEchec();
+			this.getRoi(Piece.NOIR ).calculEchec();
+
 			return true;
 		}
 
 		return false;
+	}
+
+	public boolean roiEchec(char couleur)
+	{
+		return this.getRoi(couleur).isEchec();
 	}
 
 	public Piece getPiece(int x, int y)
@@ -106,10 +115,10 @@ public class Jeu
 		return this.alPiece;
 	}
 
-	public Piece getRoi(char couleur)
+	public Roi getRoi(char couleur)
 	{
 		for (Piece p : this.alPiece)
-			if (p instanceof Roi && p.getCouleur() == couleur) return p;
+			if (p instanceof Roi && p.getCouleur() == couleur) return (Roi)p;
 
 		return null;
 	}
@@ -204,6 +213,7 @@ public class Jeu
 		System.out.println(j);
 
 		// Déplacement du pion Noir
+		System.out.println("06");
 		System.out.println(j.deplacer(j.getPiece(0, 6), 0, 4));
 		System.out.println(j);
 
@@ -220,11 +230,30 @@ public class Jeu
 		System.out.println(j);
 
 		// Déplacement du pion Noir
+		System.out.println("Pion noir");
 		System.out.println(j.deplacer(j.getPiece(3, 6), 3, 5));
 		System.out.println(j);
 
+		// Roi blanc en échec ?
+		System.out.println(j.roiEchec(Piece.BLANC));
+
 		// Déplacement de la dame
 		System.out.println(j.deplacer(j.getPiece(4, 7), 1, 4));
+		System.out.println(j);
+
+		// Roi blanc en échec ?
+		System.out.println(j.roiEchec(Piece.BLANC));
+
+		// Déplacement du pion blanc
+		System.out.println(j.deplacer(j.getPiece(2, 1), 2, 2));
+		System.out.println(j);
+
+		// Déplacement du roi
+		System.out.println(j.deplacer(j.getPiece(3, 2), 4, 2));
+		System.out.println(j);
+
+		// Déplacement du pion blanc
+		System.out.println(j.deplacer(j.getPiece(2, 1), 2, 3));
 		System.out.println(j);
 	}
 }
