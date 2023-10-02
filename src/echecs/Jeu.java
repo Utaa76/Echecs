@@ -38,10 +38,10 @@ public class Jeu
 					if (x == 2 || x == Jeu.TAILLE-3)
 						p = new Fou(x, y, couleur, this);
 
-					if (x == 3)
+					if (x == 4)
 						p = new Roi(x, y, couleur, this);
 					
-					if (x == 4)
+					if (x == 3)
 						p = new Dame(x, y, couleur, this);
 
 				}
@@ -85,6 +85,7 @@ public class Jeu
 
 	public boolean deplacer(Piece p, int x, int y)
 	{
+		System.out.println("deplacement " + p);
 		if (p.peutDeplacer(x, y))
 		{
 			this.plateau[p.getX()][p.getY()] = null;
@@ -123,137 +124,31 @@ public class Jeu
 		return null;
 	}
 
+	//TODO: Echec et mat (si un roi est échec, regarder si pour chaque position il est tjrs échec (TODO: la couverture d'échec))
+
 	public static void main(String[] args)
 	{
 		Jeu j = new Jeu();
 		System.out.println(j);
 
 		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 3));
+		System.out.println("1 " + j.deplacer(j.getPiece(3, 1), 3, 3));
 		System.out.println(j);
 
-		// Déplacement du Roi
-		System.out.println(j.deplacer(j.getPiece(3, 0), 3, 1));
+		// Déplacement d'un fou
+		System.out.println("2 " + j.deplacer(j.getPiece(2, 0), 4, 2));
 		System.out.println(j);
 
-		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(0, 1), 0, 3));
-		System.out.println(j);
-
-		// Déplacement de la tour
-		System.out.println(j.deplacer(j.getPiece(0, 0), 0, 2));
-		System.out.println(j);
-
-		// Déplacement de la tour
-		System.out.println(j.deplacer(j.getPiece(0, 2), 7, 2));
-		System.out.println(j);
-
-		// Déplacement de la tour
-		System.out.println(j.deplacer(j.getPiece(7, 2), 7, 1));
-		System.out.println(j);
-
-		// Déplacement du cavalier
-		System.out.println(j.deplacer(j.getPiece(6, 0), 7, 2));
-		System.out.println(j);
-
-		// Déplacement du cavalier
-		System.out.println(j.deplacer(j.getPiece(6, 0), 5, 2));
-		System.out.println(j);
-
-		// Déplacement du roi
-		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 2));
-		System.out.println(j);
-
-		// Déplacement du cavalier
-		System.out.println(j.deplacer(j.getPiece(1, 0), 3, 1));
-		System.out.println(j);
-
-		// Déplacement du pion 2
-		System.out.println(j.deplacer(j.getPiece(1, 1), 1, 2));
-		System.out.println(j);
-
-		// Déplacement du pion 2
-		System.out.println(j.deplacer(j.getPiece(1, 2), 1, 4));
-		System.out.println(j);
-
-		// Déplacement du fou
-		System.out.println(j.deplacer(j.getPiece(2, 0), 0, 2));
-		System.out.println(j);
-
-		// Déplacement du fou
-		System.out.println(j.deplacer(j.getPiece(0, 2), 2, 4));
-		System.out.println(j);
-
-		// Déplacement du fou
-		System.out.println(j.deplacer(j.getPiece(2, 4), 4, 2));
-		System.out.println(j);
-
-		// Déplacement du fou
-		System.out.println(j.deplacer(j.getPiece(2, 4), 1, 3));
+		// Déplacement d'un cavalier
+		System.out.println("3 " + j.deplacer(j.getPiece(1, 0), 2, 2));
 		System.out.println(j);
 
 		// Déplacement de la dame
-		System.out.println(j.deplacer(j.getPiece(4, 0), 0, 0));
+		System.out.println("4 " + j.deplacer(j.getPiece(3, 0), 3, 2));
 		System.out.println(j);
 
-		// Déplacement de la dame
-		System.out.println(j.deplacer(j.getPiece(0, 0), 2, 2));
-		System.out.println(j);
-
-		// Déplacement de la dame
-		System.out.println(j.deplacer(j.getPiece(2, 2), 2, 6));
-		System.out.println(j);
-
-		// Déplacement du roi Noir
-		System.out.println(j.deplacer(j.getPiece(3, 7), 2, 6));
-		System.out.println(j);
-
-		// Déplacement du cavalier Noir
-		System.out.println(j.deplacer(j.getPiece(1, 7), 2, 5));
-		System.out.println(j);
-
-		// Déplacement du pion Noir
-		System.out.println("06");
-		System.out.println(j.deplacer(j.getPiece(0, 6), 0, 4));
-		System.out.println(j);
-
-		// Déplacement du pion Noir
-		System.out.println(j.deplacer(j.getPiece(0, 4), 0, 3));
-		System.out.println(j);
-
-		// Déplacement du pion Noir
-		System.out.println(j.deplacer(j.getPiece(0, 4), 1, 3));
-		System.out.println(j);
-
-		// Déplacement du cavalier Noir
-		System.out.println(j.deplacer(j.getPiece(2, 5), 3, 3));
-		System.out.println(j);
-
-		// Déplacement du pion Noir
-		System.out.println("Pion noir");
-		System.out.println(j.deplacer(j.getPiece(3, 6), 3, 5));
-		System.out.println(j);
-
-		// Roi blanc en échec ?
-		System.out.println(j.roiEchec(Piece.BLANC));
-
-		// Déplacement de la dame
-		System.out.println(j.deplacer(j.getPiece(4, 7), 1, 4));
-		System.out.println(j);
-
-		// Roi blanc en échec ?
-		System.out.println(j.roiEchec(Piece.BLANC));
-
-		// Déplacement du pion blanc
-		System.out.println(j.deplacer(j.getPiece(2, 1), 2, 2));
-		System.out.println(j);
-
-		// Déplacement du roi
-		System.out.println(j.deplacer(j.getPiece(3, 2), 4, 2));
-		System.out.println(j);
-
-		// Déplacement du pion blanc
-		System.out.println(j.deplacer(j.getPiece(2, 1), 2, 3));
+		// Roque Ouest
+		System.out.println("5 " + j.deplacer(j.getPiece(4, 0), 2, 0));
 		System.out.println(j);
 	}
 }

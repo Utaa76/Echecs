@@ -2,14 +2,23 @@ package echecs;
 
 public class Tour extends Piece
 {
+	boolean roque;
+
 	public Tour(int x, int y, char couleur, Jeu jeu)
 	{
 		super(x, y, couleur, jeu);
+		this.roque = false;
 	}
 
 	public boolean peutDeplacer(int x, int y)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
+
+		if (roque)
+		{
+			roque = false;
+			return true;
+		}
 
 		if (this.jeu.roiEchec(this.couleur)) return false;
 
@@ -22,6 +31,23 @@ public class Tour extends Piece
 			    this.x == x && this.y + i == y && verifierChemin(x, y)) return true;
 
 		}
+
+		// Piece roi;
+		// if (this.alMouvs.isEmpty() && this.x == 7)
+		// {
+		// 	System.out.println(11);
+		// 	roi = this.jeu.getPiece(this.x-1, this.y);
+		// 	if (this.x-2 == x && this.y == y && roi != null && roi.alMouvs.size() == 1 && this.verifierChemin(x, y))
+		// 		return true;
+		// }
+		
+		// if (this.alMouvs.isEmpty() && this.x == 0)
+		// {
+		// 	System.out.println(12);
+		// 	roi = this.jeu.getPiece(this.x+2, this.y);
+		// 	if (this.x+3 == x && this.y == y && roi != null && roi.alMouvs.size() == 1 && this.verifierChemin(x, y))
+		// 		return true;
+		// }
 
 		return false;
 	}

@@ -19,24 +19,31 @@ public class Roi extends Piece
 
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
-		for (int i = -1 ; i < 3 ; i++)
-			for (int j = -1 ; j < 3 ; j++)
+		for (int i = -1 ; i < 2 ; i++)
+			for (int j = -1 ; j < 2 ; j++)
 				if (this.x+i == x && this.y+j == y) return true;
 
 		//TODO: condition du cas en échec
 
 		//TODO: le roque
-		// if (this.x+2 == x && this.y == y && this.jeu.getPiece(x+1, this.y).alMouvs.isEmpty());
-		// {
-		// 	this.jeu.getPiece(x+1, this.y).deplacer(this.x+1, this.y);
-		// 	return true;
-		// }
+		if (this.alMouvs.isEmpty())
+		{
+			Piece tour = this.jeu.getPiece(x+1, this.y);
+			if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+			{
+				((Tour)tour).roque = true;
+				this.jeu.deplacer(tour, this.x+1, this.y);
+				return true;
+			}
 
-		// if (this.x+2 == x && this.y == y && this.jeu.getPiece(x+1, this.y).alMouvs.isEmpty());
-		// {
-		// 	this.jeu.getPiece(x+1, this.y).deplacer(this.x+1, this.y);
-		// 	return true;
-		// }
+			tour = this.jeu.getPiece(x-2, this.y);
+			if (this.x-2 == x && this.y == y && tour != null &&tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+			{
+				((Tour)tour).roque = true;
+				this.jeu.deplacer(tour, this.x-1, this.y);
+				return true;
+			}
+		}
 
 		return false;
 	}
@@ -61,5 +68,17 @@ public class Roi extends Piece
 	public boolean isEchec()
 	{
 		return this.isEchec;
+	}
+
+	public boolean verifierCheminRoque(int x, int y)
+	{
+		int ratio = x - this.x + y - this.y;
+		for (int i = ratio > 0 ? 1 : -1 ; i != ratio ; i = ratio > 0 ? i + 1 : i - 1)
+		{
+			if (this.x - x == 0 && this.jeu.getPiece(this.x, this.y + i) != null) return false;
+			if (this.y - y == 0 && this.jeu.getPiece(this.x + i, this.y) != null) return false;
+		}
+
+		return true;
 	}
 }
