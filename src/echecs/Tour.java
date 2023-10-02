@@ -14,11 +14,7 @@ public class Tour extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
-		if (roque)
-		{
-			roque = false;
-			return true;
-		}
+		if (roque) return true;
 
 		if (this.jeu.roiEchec(this.couleur)) return false;
 

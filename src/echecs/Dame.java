@@ -12,8 +12,6 @@ public class Dame extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
-		if (this.jeu.roiEchec(this.couleur)) return false;
-
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
@@ -31,6 +29,20 @@ public class Dame extends Piece
 				this.x + i == x && this.y - i == y && verifierCheminDiag(x, y) ||
 				this.x - i == x && this.y - i == y && verifierCheminDiag(x, y)   ) return true;
 			
+		}
+
+		//TODO: Le mettre avant mais modifier pour qu'il puisse bouger qu'au bon endroit... galere
+		if (this.jeu.roiEchec(this.couleur))
+		{
+			// char couleur = this.couleur == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
+			Pion pTmp = new Pion(x, y, this.couleur, this.jeu);
+
+			Roi roi = this.jeu.getRoi(this.couleur);
+			roi.calculEchec();
+
+			if (!roi.isEchec()) return true;
+			
+			pTmp = null;
 		}
 
 		return false;

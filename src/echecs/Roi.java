@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Roi extends Piece
 {
 	private boolean isEchec = false;
+	private boolean aRoque = false;
 
 	public Roi(int x, int y, char couleur, Jeu jeu)
 	{
@@ -15,24 +16,37 @@ public class Roi extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
+		//FIXME: ça trigger le roi ennemi
+		System.out.println("avant roque = " + this.aRoque);
+		if (this.aRoque)
+		{
+			System.out.println("je suis dans aRoque et mon échec est à " + this.isEchec);
+			this.aRoque = false;
+			return true;
+		}
+		System.out.println("apres roque = " + this.aRoque);
+		
 		Piece p = jeu.getPiece(x, y);
-
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
 		for (int i = -1 ; i < 2 ; i++)
 			for (int j = -1 ; j < 2 ; j++)
 				if (this.x+i == x && this.y+j == y) return true;
 
+
 		//TODO: condition du cas en échec
 
-		//TODO: le roque
+		//FIXME: le roque
 		if (this.alMouvs.isEmpty())
 		{
 			Piece tour = this.jeu.getPiece(x+1, this.y);
 			if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
 				((Tour)tour).roque = true;
+				System.out.println("tour.roque est true");
+				this.aRoque = true;
 				this.jeu.deplacer(tour, this.x+1, this.y);
+				((Tour)tour).roque = false;
 				return true;
 			}
 
@@ -40,7 +54,10 @@ public class Roi extends Piece
 			if (this.x-2 == x && this.y == y && tour != null &&tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
 				((Tour)tour).roque = true;
+				System.out.println("tour.roque est true");
+				this.aRoque = true;
 				this.jeu.deplacer(tour, this.x-1, this.y);
+				((Tour)tour).roque = false;
 				return true;
 			}
 		}
@@ -58,7 +75,7 @@ public class Roi extends Piece
 			if (p.getCouleur() != this.couleur && p.peutDeplacer(this.x, this.y))
 			{
 				this.isEchec = true;
-				//System.out.println(p.toStringEvolved());
+				System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
 				return;
 			}
 		

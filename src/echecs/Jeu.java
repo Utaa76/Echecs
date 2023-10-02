@@ -85,15 +85,19 @@ public class Jeu
 
 	public boolean deplacer(Piece p, int x, int y)
 	{
-		System.out.println("deplacement " + p);
+		// System.out.println("deplacement " + p);
 		if (p.peutDeplacer(x, y))
 		{
 			this.plateau[p.getX()][p.getY()] = null;
-			p.deplacer(x, y);
+			System.out.println("deplacement " + p + " " + p.deplacer(x, y));
 			this.plateau[x][y] = p;
+
+			if (p instanceof Tour && ((Tour)p).roque) return true;
 
 			this.getRoi(Piece.BLANC).calculEchec();
 			this.getRoi(Piece.NOIR ).calculEchec();
+
+			System.out.println("échec : " + this.getRoi(Piece.BLANC).isEchec());
 
 			return true;
 		}
@@ -150,5 +154,60 @@ public class Jeu
 		// Roque Ouest
 		System.out.println("5 " + j.deplacer(j.getPiece(4, 0), 2, 0));
 		System.out.println(j);
+
+		// Pion noir
+		System.out.println("6 " + j.deplacer(j.getPiece(6, 6), 6, 5));
+		System.out.println(j);
+
+		// Fou noir
+		System.out.println("7 " + j.deplacer(j.getPiece(5, 7), 7, 5));
+		System.out.println(j);
+
+		// Fou noir
+		System.out.println("8 " + j.deplacer(j.getPiece(7, 5), 4, 2));
+		System.out.println(j);
+
+		// Pion blanc (test échec)
+		System.out.println("9 " + j.deplacer(j.getPiece(2, 2), 1, 4));
+		System.out.println(j);
+
+		/* JEU 2 POUR TEST */
+		Jeu j2 = new Jeu();
+
+		System.out.println(j2.deplacer(j2.getPiece(4, 6), 4, 4));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(5, 7), 1, 3));
+		System.out.println(j2);
+
+		// System.out.println(j2.deplacer(j2.getPiece(3, 1), 3, 3));
+		// System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(6, 1), 6, 2));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(5, 0), 6, 1));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(6, 0), 7, 2));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(4, 0), 6, 0));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(5, 1), 5, 2));
+		System.out.println(j2);
+		
+		System.out.println(j2.deplacer(j2.getPiece(3, 1), 3, 2));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(3, 0), 3, 1));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(1, 3), 2, 4));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(3, 1), 2, 2));
+		System.out.println(j2);
 	}
 }
