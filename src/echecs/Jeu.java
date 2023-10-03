@@ -117,6 +117,27 @@ public class Jeu
 		return this.getRoi(couleur).isEchec();
 	}
 
+	public boolean echecEtMat()
+	{
+		char couleur;
+		if      (this.roiEchec(Piece.BLANC)) couleur = Piece.BLANC;
+		else if (this.roiEchec(Piece.NOIR )) couleur = Piece.NOIR ;
+		else return false;
+
+		Roi roi = this.getRoi(couleur);
+		for (int x = -1 ; x < 2 ; x++)
+			for (int y = -1 ; y < 2 ; y++)
+				if (!roi.seMetEchec(x, y)) return false;
+
+		for (int x = 0 ; x < Jeu.TAILLE ; x++)
+			for (int y = 0 ; y < Jeu.TAILLE ; y++)
+				for (Piece p : this.alPiece)
+					if (p.getCouleur() != couleur)
+						if (p.peutDeplacer(x, y)) return false;
+
+		return true;
+	}
+
 	public Piece getPiece(int x, int y)
 	{
 		return this.plateau[x][y];
@@ -143,84 +164,7 @@ public class Jeu
 		System.out.println(j);
 
 		// Déplacement d'un pion
-		System.out.println("1 " + j.deplacer(j.getPiece(3, 1), 3, 3));
+		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 3));
 		System.out.println(j);
-
-		// Déplacement d'un fou
-		System.out.println("2 " + j.deplacer(j.getPiece(2, 0), 4, 2));
-		System.out.println(j);
-
-		// Déplacement d'un cavalier
-		System.out.println("3 " + j.deplacer(j.getPiece(1, 0), 2, 2));
-		System.out.println(j);
-
-		// Déplacement de la dame
-		System.out.println("4 " + j.deplacer(j.getPiece(3, 0), 3, 2));
-		System.out.println(j);
-
-		// Roque Ouest
-		System.out.println("5 " + j.deplacer(j.getPiece(4, 0), 2, 0));
-		System.out.println(j);
-
-		// Pion noir
-		System.out.println("6 " + j.deplacer(j.getPiece(6, 6), 6, 5));
-		System.out.println(j);
-
-		// Fou noir
-		System.out.println("7 " + j.deplacer(j.getPiece(5, 7), 7, 5));
-		System.out.println(j);
-
-		// Fou noir
-		System.out.println("8 " + j.deplacer(j.getPiece(7, 5), 4, 2));
-		System.out.println(j);
-
-		// Pion blanc (test échec)
-		System.out.println("9 " + j.deplacer(j.getPiece(2, 2), 1, 4));
-		System.out.println(j);
-
-		/* JEU 2 POUR TEST */
-		Jeu j2 = new Jeu();
-
-		System.out.println(j2.deplacer(j2.getPiece(4, 6), 4, 4));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(5, 7), 1, 3));
-		System.out.println(j2);
-
-		// System.out.println(j2.deplacer(j2.getPiece(3, 1), 3, 3));
-		// System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(6, 1), 6, 2));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(5, 0), 6, 1));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(6, 0), 7, 2));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(4, 0), 6, 0));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(5, 1), 5, 2));
-		System.out.println(j2);
-		
-		System.out.println(j2.deplacer(j2.getPiece(3, 1), 3, 2));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(3, 0), 3, 1));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(1, 3), 2, 4));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(3, 1), 2, 2));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(3, 1), 4, 2));
-		System.out.println(j2);
-
-		//System.out.println(j2.deplacer(j2.getPiece(2, 4), 5, 1));
-		//System.out.println(j2);
 	}
 }

@@ -16,6 +16,8 @@ public class Roi extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
+		if (this.seMetEchec(x, y)) return false;
+
 		if (this.aRoque)
 		{
 			this.aRoque = false;
@@ -30,9 +32,6 @@ public class Roi extends Piece
 				if (this.x+i == x && this.y+j == y) return true;
 
 
-		//TODO: condition du cas en échec
-
-		//FIXME: le roque
 		if (this.alMouvs.isEmpty())
 		{
 			Piece tour = this.jeu.getPiece(x+1, this.y);
@@ -79,6 +78,26 @@ public class Roi extends Piece
 	public boolean isEchec()
 	{
 		return this.isEchec;
+	}
+
+	public boolean seMetEchec(int x, int y)
+	{
+		boolean bRet = false;
+
+		this.jeu.setPlateau(this, x, y);
+
+		this.calculEchec();
+
+		if (this.isEchec)
+		{
+			System.out.println("Le roi se met échec en se déplaçant en x:" + x + " et y:" + y);
+
+			bRet = true;
+		}
+
+		this.jeu.setPlateau(null, x, y);
+
+		return bRet;
 	}
 
 	public boolean verifierCheminRoque(int x, int y)

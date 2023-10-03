@@ -25,7 +25,6 @@ public class Tour extends Piece
 
 			if (roi.isEchec())
 			{
-				System.out.println("Le roi est tjrs échec malgré le déplacement en x:" + x + " et y:" + y);
 				this.jeu.setPlateau(null, x, y);
 
 				return false;
