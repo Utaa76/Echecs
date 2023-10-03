@@ -16,7 +16,24 @@ public class Tour extends Piece
 
 		if (roque) return true;
 
-		if (this.jeu.roiEchec(this.couleur)) return false;
+		if (this.jeu.roiEchec(this.couleur))
+		{
+			this.jeu.setPlateau(this, x, y);
+
+			Roi roi = this.jeu.getRoi(this.couleur);
+			roi.calculEchec();
+
+			if (roi.isEchec())
+			{
+				System.out.println("Le roi est tjrs échec malgré le déplacement en x:" + x + " et y:" + y);
+				this.jeu.setPlateau(null, x, y);
+
+				return false;
+			}
+
+			this.jeu.setPlateau(null, x, y);
+		}
+
 
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;

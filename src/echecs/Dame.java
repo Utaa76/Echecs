@@ -1,5 +1,7 @@
 package echecs;
 
+import java.util.ArrayList;
+
 public class Dame extends Piece
 {
 	public Dame(int x, int y, char couleur, Jeu jeu)
@@ -7,10 +9,28 @@ public class Dame extends Piece
 		super(x, y, couleur, jeu);
 	}
 
-	//TODO: Couvrir l'échec
 	public boolean peutDeplacer(int x, int y)
 	{
+		System.out.println("appel de peutDeplacer pour aller en x:" + x + " y:" + y);
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
+
+		if (this.jeu.roiEchec(this.couleur))
+		{
+			this.jeu.setPlateau(this, x, y);
+
+			Roi roi = this.jeu.getRoi(this.couleur);
+			roi.calculEchec();
+
+			if (roi.isEchec())
+			{
+				System.out.println("Le roi est tjrs échec malgré le déplacement en x:" + x + " et y:" + y);
+				this.jeu.setPlateau(null, x, y);
+
+				return false;
+			}
+
+			this.jeu.setPlateau(null, x, y);
+		}
 
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
@@ -29,20 +49,6 @@ public class Dame extends Piece
 				this.x + i == x && this.y - i == y && verifierCheminDiag(x, y) ||
 				this.x - i == x && this.y - i == y && verifierCheminDiag(x, y)   ) return true;
 			
-		}
-
-		//TODO: Le mettre avant mais modifier pour qu'il puisse bouger qu'au bon endroit... galere
-		if (this.jeu.roiEchec(this.couleur))
-		{
-			// char couleur = this.couleur == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
-			Pion pTmp = new Pion(x, y, this.couleur, this.jeu);
-
-			Roi roi = this.jeu.getRoi(this.couleur);
-			roi.calculEchec();
-
-			if (!roi.isEchec()) return true;
-			
-			pTmp = null;
 		}
 
 		return false;

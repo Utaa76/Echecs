@@ -16,15 +16,11 @@ public class Roi extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
-		//FIXME: ça trigger le roi ennemi
-		System.out.println("avant roque = " + this.aRoque);
 		if (this.aRoque)
 		{
-			System.out.println("je suis dans aRoque et mon échec est à " + this.isEchec);
 			this.aRoque = false;
 			return true;
 		}
-		System.out.println("apres roque = " + this.aRoque);
 		
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
@@ -43,7 +39,6 @@ public class Roi extends Piece
 			if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
 				((Tour)tour).roque = true;
-				System.out.println("tour.roque est true");
 				this.aRoque = true;
 				this.jeu.deplacer(tour, this.x+1, this.y);
 				((Tour)tour).roque = false;
@@ -54,7 +49,6 @@ public class Roi extends Piece
 			if (this.x-2 == x && this.y == y && tour != null &&tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
 				((Tour)tour).roque = true;
-				System.out.println("tour.roque est true");
 				this.aRoque = true;
 				this.jeu.deplacer(tour, this.x-1, this.y);
 				((Tour)tour).roque = false;
@@ -78,7 +72,7 @@ public class Roi extends Piece
 				System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
 				return;
 			}
-		
+
 		this.isEchec = false;
 	}
 

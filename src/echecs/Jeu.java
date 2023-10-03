@@ -57,6 +57,13 @@ public class Jeu
 			}
 	}
 
+	void setPlateau(Piece p, int x, int y)
+	{
+		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return;
+
+		this.plateau[x][y] = p;
+	}
+
 	public String toString()
 	{
 		String sRet = "+---+---+---+---+---+---+---+---+\n";
@@ -209,5 +216,11 @@ public class Jeu
 
 		System.out.println(j2.deplacer(j2.getPiece(3, 1), 2, 2));
 		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(3, 1), 4, 2));
+		System.out.println(j2);
+
+		//System.out.println(j2.deplacer(j2.getPiece(2, 4), 5, 1));
+		//System.out.println(j2);
 	}
 }
