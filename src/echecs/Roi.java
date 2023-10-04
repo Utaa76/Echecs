@@ -65,7 +65,7 @@ public class Roi extends Piece
 		ArrayList<Piece> alPiece = this.jeu.getAlPiece();
 
 		for (Piece p : alPiece)
-			if (p.getCouleur() != this.couleur && p.peutDeplacer(this.x, this.y))
+			if (p.getCouleur() != this.couleur&& !(p instanceof Roi) && p.peutDeplacer(this.x, this.y))
 			{
 				this.isEchec = true;
 				System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());

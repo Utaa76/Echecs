@@ -140,6 +140,7 @@ public class Jeu
 
 	public Piece getPiece(int x, int y)
 	{
+		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return null;
 		return this.plateau[x][y];
 	}
 
@@ -164,7 +165,25 @@ public class Jeu
 		System.out.println(j);
 
 		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 3));
+		System.out.println(j.deplacer(j.getPiece(4, 1), 4, 3));
 		System.out.println(j);
+
+		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(3, 0), 5, 2));
+		System.out.println(j);
+
+		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(5, 0), 2, 3));
+		System.out.println(j);
+
+		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(4, 6), 4, 4));
+		System.out.println(j);
+
+		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(5, 2), 5, 6));
+		System.out.println(j);
+
+		System.out.println(j.echecEtMat());
 	}
 }
