@@ -1,4 +1,4 @@
-package echecs;
+package echecs.metier;
 
 public class Mouvement
 {

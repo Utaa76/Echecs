@@ -2,6 +2,8 @@ package echecs;
 
 import java.util.ArrayList;
 
+import echecs.metier.*;
+
 public class Jeu
 {
 	public static final int TAILLE = 8;
@@ -57,7 +59,7 @@ public class Jeu
 			}
 	}
 
-	void setPlateau(Piece p, int x, int y)
+	public void setPlateau(Piece p, int x, int y)
 	{
 		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return;
 

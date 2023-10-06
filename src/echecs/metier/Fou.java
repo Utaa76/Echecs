@@ -1,4 +1,6 @@
-package echecs;
+package echecs.metier;
+
+import echecs.Jeu;
 
 public class Fou extends Piece
 {
