@@ -1,9 +1,5 @@
 package echecs.metier;
 
-import java.util.ArrayList;
-
-import echecs.Jeu;
-
 public class Dame extends Piece
 {
 	public Dame(int x, int y, char couleur, Jeu jeu)

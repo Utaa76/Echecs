@@ -1,7 +1,5 @@
 package echecs.metier;
 
-import echecs.Jeu;
-
 public class Cavalier extends Piece
 {
 	public Cavalier(int x, int y, char couleur, Jeu jeu)

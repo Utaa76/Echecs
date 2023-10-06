@@ -2,8 +2,6 @@ package echecs.metier;
 
 import java.util.ArrayList;
 
-import echecs.Jeu;
-
 public class Roi extends Piece
 {
 	private boolean isEchec = false;

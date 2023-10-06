@@ -1,7 +1,5 @@
 package echecs.metier;
 
-import echecs.Jeu;
-
 public class Pion extends Piece
 {
 	public Pion(int x, int y, char couleur, Jeu jeu)

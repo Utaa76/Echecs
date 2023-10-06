@@ -2,8 +2,6 @@ package echecs.metier;
 
 import java.util.ArrayList;
 
-import echecs.Jeu;
-
 public abstract class Piece
 {
 	public static final char BLANC = 'B';

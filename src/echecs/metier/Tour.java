@@ -1,7 +1,5 @@
 package echecs.metier;
 
-import echecs.Jeu;
-
 public class Tour extends Piece
 {
 	boolean roque;
