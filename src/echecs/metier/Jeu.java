@@ -199,7 +199,11 @@ public class Jeu
 		System.out.println(j.deplacer(j.getPiece(4, 7), 4, 6));
 		System.out.println(j);
 
-		// Déplacement d'un pion
+		// Déplacement de la dame NOIRE
+		// System.out.println(j.deplacer(j.getPiece(3, 7), 4, 6));
+		// System.out.println(j);
+
+		// Déplacement de la dame
 		System.out.println(j.deplacer(j.getPiece(5, 2), 5, 6));
 		System.out.println(j);
 

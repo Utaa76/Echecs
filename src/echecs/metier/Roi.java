@@ -95,7 +95,7 @@ public class Roi extends Piece
 
 		if (this.isEchec)
 		{
-			System.out.println("Le roi se met échec en se déplaçant en x:" + x + " et y:" + y);
+			//System.out.println("Le roi se met échec en se déplaçant en x:" + x + " et y:" + y);
 
 			bRet = true;
 		}
