@@ -40,6 +40,21 @@ public abstract class Piece
 
 		return true;
 	}
+
+	public boolean couvreEchec(int x, int y)
+	{
+		boolean bRet = true;
+		this.jeu.setPlateau(this, x, y);
+
+		Roi roi = this.jeu.getRoi(this.couleur);
+		roi.calculEchec();
+
+		if (roi.isEchec())
+			bRet = false;
+
+		this.jeu.setPlateau(null, x, y);
+		return bRet;
+	}
 	
 	public abstract char getSymbole();
 

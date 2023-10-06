@@ -127,13 +127,20 @@ public class Jeu
 		Roi roi = this.getRoi(couleur);
 		for (int x = -1 ; x < 2 ; x++)
 			for (int y = -1 ; y < 2 ; y++)
-				if (!roi.seMetEchec(x, y)) return false;
+			{
+				int xRoi = roi.getX();
+				int yRoi = roi.getY();
+				if (xRoi+x >= 0 && xRoi+x < Jeu.TAILLE && yRoi+y >= 0 && yRoi+y < Jeu.TAILLE) { System.out.printf("x:%d y:%d\n", xRoi+x, yRoi+y);
+					if (!roi.seMetEchec(xRoi+x, yRoi+y)) return false; }
+			}
+
+		System.out.println("le roi ne peut pas bouger");
 
 		for (int x = 0 ; x < Jeu.TAILLE ; x++)
 			for (int y = 0 ; y < Jeu.TAILLE ; y++)
 				for (Piece p : this.alPiece)
-					if (p.getCouleur() != couleur)
-						if (p.peutDeplacer(x, y)) return false;
+					if (p.getCouleur() == couleur && !(p instanceof Roi))
+						if (p.couvreEchec(x, y)){ System.out.println(p + "x:" + x + " y:" + y); return false;}
 
 		return true;
 	}
@@ -181,9 +188,22 @@ public class Jeu
 		System.out.println(j);
 
 		// Déplacement d'un pion
+		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 3));
+		System.out.println(j);
+
+		// Déplacement d'un fou
+		System.out.println(j.deplacer(j.getPiece(2, 0), 6, 4));
+		System.out.println(j);
+
+		// Déplacement du roi
+		System.out.println(j.deplacer(j.getPiece(4, 7), 4, 6));
+		System.out.println(j);
+
+		// Déplacement d'un pion
 		System.out.println(j.deplacer(j.getPiece(5, 2), 5, 6));
 		System.out.println(j);
 
+		System.out.println("-----------\nEchec et mat\n-----------");
 		System.out.println(j.echecEtMat());
 	}
 }

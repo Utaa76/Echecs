@@ -68,7 +68,7 @@ public class Roi extends Piece
 			if (p.getCouleur() != this.couleur&& !(p instanceof Roi) && p.peutDeplacer(this.x, this.y))
 			{
 				this.isEchec = true;
-				System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
+				//System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
 				return;
 			}
 
@@ -85,6 +85,11 @@ public class Roi extends Piece
 		boolean bRet = false;
 
 		this.jeu.setPlateau(this, x, y);
+		int xPrev = this.x;
+		int yPrev = this.y;
+
+		this.x = x;
+		this.y = y;
 
 		this.calculEchec();
 
@@ -95,6 +100,8 @@ public class Roi extends Piece
 			bRet = true;
 		}
 
+		this.x = xPrev;
+		this.y = yPrev;
 		this.jeu.setPlateau(null, x, y);
 
 		return bRet;
