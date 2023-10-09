@@ -1,14 +1,17 @@
 package echecs.vue;
 
-import javax.swing.*;
-import echecs.Controleur;
-import echecs.metier.Piece;
-import java.awt.event.*;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
+
+import echecs.Controleur;
+import echecs.metier.Piece;
+import echecs.metier.Roi;
 
 public class PanelJeu extends JPanel
 {
@@ -25,6 +28,7 @@ public class PanelJeu extends JPanel
 		this.repaint();
 	}
 
+	@Override
 	public void paintComponent(Graphics g)
 	{
 		// Dessiner la grille
@@ -42,6 +46,22 @@ public class PanelJeu extends JPanel
 					g.setColor(Color.BLACK);
 					g.fillRect(100 + i*100, 100 + j*100, 100, 100);
 				}
+
+				if (this.ctrl.isRoiEchec(Piece.NOIR))
+				{
+					g.setColor(Color.RED);
+					Roi roi = this.ctrl.getRoi(Piece.BLANC);
+					g.drawOval(125+100*roi.getX(), 125+100*roi.getY(), 50, 50);
+				}
+
+				if (this.ctrl.isRoiEchec(Piece.BLANC))
+				{
+					g.setColor(Color.RED);
+					Roi roi = this.ctrl.getRoi(Piece.NOIR);
+					g.drawOval(125+100*roi.getX(), 125+0*roi.getY(), 50, 50);
+				}
+
+				g.setColor(Color.BLACK);
 
 				g.setFont(new Font("", Font.PLAIN, 40));
 
@@ -98,6 +118,8 @@ public class PanelJeu extends JPanel
 						}
 					}
 
+			System.out.println("roinoirechec : " + PanelJeu.this.ctrl.isRoiEchec(Piece.NOIR));
+			System.out.println("echecetmat " + PanelJeu.this.ctrl.echecEtMat());
 			PanelJeu.this.repaint();
 		}
 	}

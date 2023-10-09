@@ -59,11 +59,13 @@ public class Jeu
 			}
 	}
 
-	void setPlateau(Piece p, int x, int y)
+	Piece setPlateau(Piece p, int x, int y)
 	{
-		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return;
+		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return null;
 
+		Piece pieceAvant = this.plateau[x][y];
 		this.plateau[x][y] = p;
+		return pieceAvant;
 	}
 
 	public String toString()
@@ -95,7 +97,7 @@ public class Jeu
 	public boolean deplacer(Piece p, int x, int y)
 	{
 		// System.out.println("deplacement " + p);
-		if (p.peutDeplacer(x, y) && !this.echecEtMat)
+		if (p.peutDeplacer(x, y, false) && !this.echecEtMat)
 		{
 			this.plateau[p.getX()][p.getY()] = null;
 			System.out.println("deplacement " + p + " " + p.deplacer(x, y));
@@ -107,6 +109,7 @@ public class Jeu
 			this.getRoi(Piece.NOIR ).calculEchec();
 
 			this.echecEtMat = this.echecEtMat();
+			System.out.println(this);
 			return true;
 		}
 

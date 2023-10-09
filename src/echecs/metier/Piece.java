@@ -25,11 +25,11 @@ public abstract class Piece
 		this.jeu     = jeu;
 	}
 
-	public abstract boolean peutDeplacer(int x, int y);
+	public abstract boolean peutDeplacer(int x, int y, boolean bRoi);
 
 	public boolean deplacer(int x, int y)
 	{
-		if (!this.peutDeplacer(x, y)) return false;
+		if (!this.peutDeplacer(x, y, false)) return false;
 
 		this.mangerPiece(x, y);
 
@@ -52,16 +52,40 @@ public abstract class Piece
 
 	public boolean couvreEchec(int x, int y)
 	{
-		boolean bRet = true;
-		this.jeu.setPlateau(this, x, y);
+		Piece p = this.jeu.setPlateau(this, x, y);
 
 		Roi roi = this.jeu.getRoi(this.couleur);
 		roi.calculEchec();
 
-		if (roi.isEchec())
-			bRet = false;
+		boolean bRet = !roi.isEchec();
 
-		this.jeu.setPlateau(null, x, y);
+		/*if (!bRet)*/ this.jeu.setPlateau(p, x, y);
+		roi.setEchec(true);
+		return bRet;
+	}
+
+	public boolean metEchec(int x, int y)
+	{
+		boolean bRet;
+
+		Piece p = this.jeu.setPlateau(this, x, y);
+		int xPrev = this.x;
+		int yPrev = this.y;
+
+		this.x = x;
+		this.y = y;
+
+		Roi roi = this.jeu.getRoi(this.couleur);
+		roi.calculEchec();
+
+		bRet = roi.isEchec();
+
+		System.out.println("bRet semetechec = " + bRet);
+
+		this.x = xPrev;
+		this.y = yPrev;
+		this.jeu.setPlateau(p, x, y);
+
 		return bRet;
 	}
 	

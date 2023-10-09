@@ -7,7 +7,7 @@ public class Pion extends Piece
 		super(x, y, couleur, jeu);
 	}
 
-	public boolean peutDeplacer(int x, int y)
+	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
@@ -31,6 +31,8 @@ public class Pion extends Piece
 			else
 				bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y-1 == y;
 		}
+
+		if (!bRoi && this.metEchec(x, y)) bRet = false;
 
 		return bRet;
 	}

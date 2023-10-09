@@ -10,13 +10,11 @@ public class Tour extends Piece
 		this.roque = false;
 	}
 
-	public boolean peutDeplacer(int x, int y)
+	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
 		if (roque) return true;
-
-		if (this.jeu.roiEchec(this.couleur) && !this.couvreEchec(x, y)) return false;
 
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
@@ -28,22 +26,7 @@ public class Tour extends Piece
 
 		}
 
-		// Piece roi;
-		// if (this.alMouvs.isEmpty() && this.x == 7)
-		// {
-		// 	System.out.println(11);
-		// 	roi = this.jeu.getPiece(this.x-1, this.y);
-		// 	if (this.x-2 == x && this.y == y && roi != null && roi.alMouvs.size() == 1 && this.verifierChemin(x, y))
-		// 		return true;
-		// }
-		
-		// if (this.alMouvs.isEmpty() && this.x == 0)
-		// {
-		// 	System.out.println(12);
-		// 	roi = this.jeu.getPiece(this.x+2, this.y);
-		// 	if (this.x+3 == x && this.y == y && roi != null && roi.alMouvs.size() == 1 && this.verifierChemin(x, y))
-		// 		return true;
-		// }
+		if (this.metEchec(x, y)) return false;
 
 		return false;
 	}

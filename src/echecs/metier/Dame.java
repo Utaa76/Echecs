@@ -7,7 +7,7 @@ public class Dame extends Piece
 		super(x, y, couleur, jeu);
 	}
 
-	public boolean peutDeplacer(int x, int y)
+	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
 		//System.out.println("appel de peutDeplacer pour aller en x:" + x + " y:" + y);
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
@@ -32,6 +32,8 @@ public class Dame extends Piece
 				this.x - i == x && this.y - i == y && verifierCheminDiag(x, y)   ) return true;
 			
 		}
+
+		if (!bRoi && !this.metEchec(x, y)) return false;
 
 		return false;
 	}

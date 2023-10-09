@@ -12,7 +12,7 @@ public class Roi extends Piece
 		super(x, y, couleur, jeu);
 	}
 
-	public boolean peutDeplacer(int x, int y)
+	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
@@ -53,9 +53,7 @@ public class Roi extends Piece
 			}
 		}
 
-		if (this.seMetEchec(x, y)) return false;
-
-		return false;
+		return !this.seMetEchec(x, y);
 	}
 
 	public char getSymbole() { return 'R'; }
@@ -65,10 +63,10 @@ public class Roi extends Piece
 		ArrayList<Piece> alPiece = this.jeu.getAlPiece();
 
 		for (Piece p : alPiece)
-			if (p.getCouleur() != this.couleur&& !(p instanceof Roi) && p.peutDeplacer(this.x, this.y))
+			if (p.getCouleur() != this.couleur && !(p instanceof Roi) && p.peutDeplacer(this.x, this.y, true))
 			{
 				this.isEchec = true;
-				//System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
+				// System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
 				return;
 			}
 
@@ -80,12 +78,17 @@ public class Roi extends Piece
 		return this.isEchec;
 	}
 
+	public void setEchec(boolean echec)
+	{
+		this.isEchec = echec;
+	}
+
 	public boolean seMetEchec(int x, int y)
 	{
-		if (!this.peutDeplacer(x, y)) return true;
+		if (!this.peutDeplacer(x, y, false)) return true;
 		boolean bRet = false;
 
-		this.jeu.setPlateau(this, x, y);
+		Piece p = this.jeu.setPlateau(this, x, y);
 		int xPrev = this.x;
 		int yPrev = this.y;
 
@@ -103,7 +106,7 @@ public class Roi extends Piece
 
 		this.x = xPrev;
 		this.y = yPrev;
-		this.jeu.setPlateau(null, x, y);
+		this.jeu.setPlateau(p, x, y);
 
 		System.out.println("le roi peut se libérer de l'échec en allant en x:" + x + " y:" + y);
 

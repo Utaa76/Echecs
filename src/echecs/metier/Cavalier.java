@@ -7,7 +7,7 @@ public class Cavalier extends Piece
 		super(x, y, couleur, jeu);
 	}
 
-	public boolean peutDeplacer(int x, int y)
+	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
@@ -24,6 +24,8 @@ public class Cavalier extends Piece
 		    this.x + 2 == x && this.y - 1 == y ||
 		    this.x - 2 == x && this.y + 1 == y ||
 		    this.x - 2 == x && this.y - 1 == y    ) return true;
+
+		if (!bRoi && this.metEchec(x, y)) return false;
 
 		return false;
 	}

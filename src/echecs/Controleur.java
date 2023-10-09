@@ -52,6 +52,16 @@ public class Controleur
 		return this.metier.isEchecEtMat();
 	}
 
+	public boolean isRoiEchec(char couleur)
+	{
+		return this.metier.roiEchec(couleur);
+	}
+
+	public Roi getRoi(char couleur)
+	{
+		return this.metier.getRoi(couleur);
+	}
+
 	public static void main(String[] args)
 	{
 		new Controleur();
