@@ -8,11 +8,13 @@ public class Jeu
 
 	private Piece[][]        plateau;
 	private ArrayList<Piece> alPiece;
+	private boolean          echecEtMat;
 
 	public Jeu()
 	{
-		this.plateau = new Piece[Jeu.TAILLE][Jeu.TAILLE];
-		this.alPiece = new ArrayList<>();
+		this.plateau    = new Piece[Jeu.TAILLE][Jeu.TAILLE];
+		this.alPiece    = new ArrayList<>();
+		this.echecEtMat = false;
 		this.initialiserPieces();
 	}
 
@@ -93,7 +95,7 @@ public class Jeu
 	public boolean deplacer(Piece p, int x, int y)
 	{
 		// System.out.println("deplacement " + p);
-		if (p.peutDeplacer(x, y))
+		if (p.peutDeplacer(x, y) && !this.echecEtMat)
 		{
 			this.plateau[p.getX()][p.getY()] = null;
 			System.out.println("deplacement " + p + " " + p.deplacer(x, y));
@@ -104,8 +106,7 @@ public class Jeu
 			this.getRoi(Piece.BLANC).calculEchec();
 			this.getRoi(Piece.NOIR ).calculEchec();
 
-			System.out.println("échec : " + this.getRoi(Piece.BLANC).isEchec());
-
+			this.echecEtMat = this.echecEtMat();
 			return true;
 		}
 
@@ -147,8 +148,13 @@ public class Jeu
 
 	public Piece getPiece(int x, int y)
 	{
-		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return null;
+		if (x < 0 || x >= Jeu.TAILLE || y < 0 || y >= Jeu.TAILLE) return null;
 		return this.plateau[x][y];
+	}
+
+	public boolean isEchecEtMat()
+	{
+		return this.echecEtMat;
 	}
 
 	public ArrayList<Piece> getAlPiece()
@@ -209,5 +215,20 @@ public class Jeu
 
 		System.out.println("-----------\nEchec et mat\n-----------");
 		System.out.println(j.echecEtMat());
+
+		Jeu j2 = new Jeu();
+		System.out.println(j2.deplacer(j2.getPiece(4, 1), 4, 3));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(5, 0), 2, 3));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(3, 0), 5, 2));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(5, 2), 5, 6));
+		System.out.println(j2);
+		System.out.println("roiNoirEchec = " + j2.roiEchec(Piece.NOIR));
+		System.out.println("echec et mat = " + j2.echecEtMat());
 	}
 }

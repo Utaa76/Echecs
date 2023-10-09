@@ -29,20 +29,38 @@ public class PanelJeu extends JPanel
 	{
 		// Dessiner la grille
 		for (int i = 0 ; i < Controleur.TAILLE ; i++)
+		{
 			for (int j = 0 ; j < Controleur.TAILLE ; j++)
 			{
 				if ((i+j)%2==0)
-					g.drawRect(100 + i*100, 100 + j*100, 100, 100);
-				else
+				{
+					g.setColor(Color.WHITE);
 					g.fillRect(100 + i*100, 100 + j*100, 100, 100);
+				}
+				else
+				{
+					g.setColor(Color.BLACK);
+					g.fillRect(100 + i*100, 100 + j*100, 100, 100);
+				}
 
 				g.setFont(new Font("", Font.PLAIN, 40));
 
-				g.setColor  (this.ctrl.getCouleurPiece(i, j) == 'B' ? Color.BLUE : Color.RED);
-				g.drawString(("" + this.ctrl.getSymbolePiece(i, j)).toUpperCase(), 140 + 100*i, 160 + 100*j);
+				Piece p = this.ctrl.getPiece(i, Math.abs(7-j));
+
+				if (p != null)
+				{
+					g.setColor  (      p.getCouleur() == 'B' ? Color.BLUE : Color.RED);
+					g.drawString(("" + p.toString().toUpperCase()), 137 + 100*i, 162 + 100*j);
+				}
 
 				g.setColor(Color.BLACK);
+
+				g.setFont(new Font("", Font.PLAIN, 30));
+				if (j == 0) g.drawString("" + (Math.abs(7-i)+1), 50, 162 + i*100);
 			}
+
+			g.drawString("" + (char)('A' + i), 137 + i*100, 950);
+		}
 	}
 
 	public class GereSouris extends MouseAdapter
@@ -57,7 +75,7 @@ public class PanelJeu extends JPanel
 
 			for (int i = 0 ; i < Controleur.TAILLE ; i++)
 				for (int j = 0 ; j < Controleur.TAILLE ; j++)
-					this.ensHitbox[i][j] = new Rectangle(100 + i*100, 100 + j*100, 100, 100);
+					this.ensHitbox[i][j] = new Rectangle(100 + i*100, 100 + Math.abs(7-j)*100, 100, 100);
 				
 		}
 
@@ -68,7 +86,19 @@ public class PanelJeu extends JPanel
 
 			for (int i = 0 ; i < Controleur.TAILLE ; i++)
 				for (int j = 0 ; j < Controleur.TAILLE ; j++)
-					if (this.ensHitbox[i][j].contains(x, y)) System.out.println("i:" + i + " j:" + j);
+					if (this.ensHitbox[i][j].contains(x, y))
+					{
+						System.out.println("i:" + i + " j:" + j);
+						Piece p = PanelJeu.this.ctrl.getPiece(i, j);;
+						if      (PanelJeu.this.pieceSelect == null && p != null) PanelJeu.this.pieceSelect = p;
+						else if (PanelJeu.this.pieceSelect != null)
+						{
+							PanelJeu.this.ctrl.deplacer(PanelJeu.this.pieceSelect, i, j);
+							PanelJeu.this.pieceSelect = null;
+						}
+					}
+
+			PanelJeu.this.repaint();
 		}
 	}
 }

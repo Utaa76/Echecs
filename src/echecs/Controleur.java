@@ -34,6 +34,24 @@ public class Controleur
 		return p.getSymbole();
 	}
 
+	public Piece getPiece(int x, int y)
+	{
+		return this.metier.getPiece(x, y);
+	}
+
+	public boolean deplacer(Piece p, int x, int y)
+	{
+		if (p != null && x >= 0 && x < Controleur.TAILLE && y >= 0 && y < Controleur.TAILLE)
+			return this.metier.deplacer(p, x, y);
+
+		return false;
+	}
+
+	public boolean echecEtMat()
+	{
+		return this.metier.isEchecEtMat();
+	}
+
 	public static void main(String[] args)
 	{
 		new Controleur();

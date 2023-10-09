@@ -16,8 +16,6 @@ public class Roi extends Piece
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
-		if (this.seMetEchec(x, y)) return false;
-
 		if (this.aRoque)
 		{
 			this.aRoque = false;
@@ -45,7 +43,7 @@ public class Roi extends Piece
 			}
 
 			tour = this.jeu.getPiece(x-2, this.y);
-			if (this.x-2 == x && this.y == y && tour != null &&tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+			if (this.x-2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
 				((Tour)tour).roque = true;
 				this.aRoque = true;
@@ -54,6 +52,8 @@ public class Roi extends Piece
 				return true;
 			}
 		}
+
+		if (this.seMetEchec(x, y)) return false;
 
 		return false;
 	}
@@ -82,6 +82,7 @@ public class Roi extends Piece
 
 	public boolean seMetEchec(int x, int y)
 	{
+		if (!this.peutDeplacer(x, y)) return true;
 		boolean bRet = false;
 
 		this.jeu.setPlateau(this, x, y);
@@ -103,6 +104,8 @@ public class Roi extends Piece
 		this.x = xPrev;
 		this.y = yPrev;
 		this.jeu.setPlateau(null, x, y);
+
+		System.out.println("le roi peut se libérer de l'échec en allant en x:" + x + " y:" + y);
 
 		return bRet;
 	}

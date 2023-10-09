@@ -31,13 +31,22 @@ public abstract class Piece
 	{
 		if (!this.peutDeplacer(x, y)) return false;
 
-		//if ((this.jeu.getRoi(this.couleur)).echec()) return false;
+		this.mangerPiece(x, y);
 
 		this.alMouvs.add(new Mouvement(this.x, this.y, x, y));
 
 		this.x = x;
 		this.y = y;
 
+		return true;
+	}
+
+	public boolean mangerPiece(int x, int y)
+	{
+		Piece p = this.jeu.getPiece(x, y);
+		if (p != null && this.couleur == p.getCouleur()) return false;
+
+		this.jeu.getAlPiece().remove(p);
 		return true;
 	}
 
