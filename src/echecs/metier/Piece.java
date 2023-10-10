@@ -80,8 +80,6 @@ public abstract class Piece
 
 		bRet = roi.isEchec();
 
-		System.out.println("bRet semetechec = " + bRet);
-
 		this.x = xPrev;
 		this.y = yPrev;
 		this.jeu.setPlateau(p, x, y);

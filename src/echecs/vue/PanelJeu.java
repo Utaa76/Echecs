@@ -39,7 +39,7 @@ public class PanelJeu extends JPanel
 				if ((i+j)%2==0)
 				{
 					g.setColor(Color.WHITE);
-					g.fillRect(100 + i*100, 100 + j*100, 100, 100);
+					g.fillRect(100 + i*100, 100 + j*100, 80, 80);
 				}
 				else
 				{
@@ -52,9 +52,9 @@ public class PanelJeu extends JPanel
 					g.setColor(Color.green);
 					g.drawOval(125+100*this.pieceSelect.getX(), 125+100*Math.abs(7-this.pieceSelect.getY()), 50, 50);
 
-					g.setColor(Color.GRAY);
-					if (this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false)) { System.out.printf("peutDeplacer en x:%d y:%d", i, Math.abs(7-j));
-						g.fillOval(125+100*i, 125+100*j, 50, 50); }
+					g.setColor(Color.lightGray);
+					if (this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false))
+						g.fillOval(135+100*i, 135+100*j, 30, 30);
 				}
 
 
@@ -66,7 +66,7 @@ public class PanelJeu extends JPanel
 
 				if (p != null)
 				{
-					g.setColor  (      p.getCouleur() == 'B' ? Color.BLUE : Color.RED);
+					g.setColor  (      p.getCouleur() == 'B' ? Color.BLUE : Color.RED       );
 					g.drawString(("" + p.toString().toUpperCase()), 137 + 100*i, 162 + 100*j);
 				}
 
@@ -78,6 +78,7 @@ public class PanelJeu extends JPanel
 
 			g.drawString("" + (char)('A' + i), 137 + i*100, 950);
 		}
+		g.drawRect(100, 100, 800, 800);
 	}
 
 	public class GereSouris extends MouseAdapter

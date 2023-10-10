@@ -229,7 +229,10 @@ public class Jeu
 		System.out.println(j2.deplacer(j2.getPiece(3, 0), 5, 2));
 		System.out.println(j2);
 
-		System.out.println(j2.deplacer(j2.getPiece(5, 2), 5, 6));
+		System.out.println(j2.deplacer(j2.getPiece(6, 0), 7, 2));
+		System.out.println(j2);
+
+		System.out.println(j2.deplacer(j2.getPiece(4, 0), 6, 0));
 		System.out.println(j2);
 		System.out.println("roiNoirEchec = " + j2.roiEchec(Piece.NOIR));
 		System.out.println("echec et mat = " + j2.echecEtMat());

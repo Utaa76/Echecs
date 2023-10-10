@@ -13,21 +13,21 @@ public class Pion extends Piece
 
 		if (this.jeu.roiEchec(this.couleur) && !this.couvreEchec(x, y)) return false;
 
-		Piece p = jeu.getPiece(x, y);
+		Piece p = this.jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
 		boolean bRet;
 		if (this.couleur == Piece.BLANC)
 		{
 			if (p == null)
-				bRet = this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty());
+				bRet = this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y+1) == null;
 			else
 				bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y+1 == y;
 		}
 		else
 		{
 			if (p == null)
-				bRet = this.x == x && this.y-1 == y || (this.x == x && this.y-2 == y && this.alMouvs.isEmpty());
+				bRet = this.x == x && this.y-1 == y || (this.x == x && this.y-2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y-1) == null;
 			else
 				bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y-1 == y;
 		}

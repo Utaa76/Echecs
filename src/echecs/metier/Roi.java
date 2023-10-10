@@ -15,12 +15,6 @@ public class Roi extends Piece
 	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
-
-		if (this.aRoque)
-		{
-			this.aRoque = false;
-			return true;
-		}
 		
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
@@ -35,20 +29,15 @@ public class Roi extends Piece
 			Piece tour = this.jeu.getPiece(x+1, this.y);
 			if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
-				((Tour)tour).roque = true;
 				this.aRoque = true;
-				this.jeu.deplacer(tour, this.x+1, this.y);
-				((Tour)tour).roque = false;
 				return true;
 			}
 
 			tour = this.jeu.getPiece(x-2, this.y);
 			if (this.x-2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
 			{
-				((Tour)tour).roque = true;
 				this.aRoque = true;
-				this.jeu.deplacer(tour, this.x-1, this.y);
-				((Tour)tour).roque = false;
+				
 				return true;
 			}
 		}
@@ -56,6 +45,46 @@ public class Roi extends Piece
 		if (bRoi) return !this.seMetEchec(x, y);
 
 		return false;
+	}
+
+	@Override
+	public boolean deplacer(int x, int y)
+	{
+		if (!this.peutDeplacer(x, y, false)) return false;
+		System.out.println("DEPLACER " + this.aRoque);
+
+		this.mangerPiece(x, y);
+
+		this.alMouvs.add(new Mouvement(this.x, this.y, x, y));
+
+		if (this.aRoque)
+		{
+			System.out.println("JE SUIS RENTRE ");
+
+			Piece tour;
+			if (x < this.x)
+			{
+				tour = this.jeu.getPiece(x-2, this.y);
+				((Tour)tour).roque = true;
+				System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x-1, this.y));
+				((Tour)tour).roque = false;
+			}
+			
+			if (x > this.x)
+			{
+				tour = this.jeu.getPiece(x+1, this.y);
+				((Tour)tour).roque = true;
+				System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x+1, this.y));
+				((Tour)tour).roque = false;
+			}
+
+			this.aRoque = false;
+		}
+
+		this.x = x;
+		this.y = y;
+
+		return true;
 	}
 
 	public char getSymbole() { return 'R'; }
@@ -87,7 +116,7 @@ public class Roi extends Piece
 
 	public boolean seMetEchec(int x, int y)
 	{
-		if (!this.peutDeplacer(x, y, false)) return true;
+		if (!this.peutDeplacer(x, y, true)) return true;
 		boolean bRet = false;
 
 		Piece p = this.jeu.setPlateau(this, x, y);
