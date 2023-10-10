@@ -47,19 +47,16 @@ public class PanelJeu extends JPanel
 					g.fillRect(100 + i*100, 100 + j*100, 100, 100);
 				}
 
-				if (this.ctrl.isRoiEchec(Piece.NOIR))
+				if (this.pieceSelect != null)
 				{
-					g.setColor(Color.RED);
-					Roi roi = this.ctrl.getRoi(Piece.BLANC);
-					g.drawOval(125+100*roi.getX(), 125+100*roi.getY(), 50, 50);
+					g.setColor(Color.green);
+					g.drawOval(125+100*this.pieceSelect.getX(), 125+100*Math.abs(7-this.pieceSelect.getY()), 50, 50);
+
+					g.setColor(Color.GRAY);
+					if (this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false)) { System.out.printf("peutDeplacer en x:%d y:%d", i, Math.abs(7-j));
+						g.fillOval(125+100*i, 125+100*j, 50, 50); }
 				}
 
-				if (this.ctrl.isRoiEchec(Piece.BLANC))
-				{
-					g.setColor(Color.RED);
-					Roi roi = this.ctrl.getRoi(Piece.NOIR);
-					g.drawOval(125+100*roi.getX(), 125+0*roi.getY(), 50, 50);
-				}
 
 				g.setColor(Color.BLACK);
 

@@ -53,7 +53,9 @@ public class Roi extends Piece
 			}
 		}
 
-		return !this.seMetEchec(x, y);
+		if (bRoi) return !this.seMetEchec(x, y);
+
+		return false;
 	}
 
 	public char getSymbole() { return 'R'; }
