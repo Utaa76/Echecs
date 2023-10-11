@@ -34,6 +34,11 @@ public class Controleur
 		return p.getSymbole();
 	}
 
+	public char getCouleurAJouer()
+	{
+		return this.metier.getCouleurAJouer();
+	}
+
 	public Piece getPiece(int x, int y)
 	{
 		return this.metier.getPiece(x, y);

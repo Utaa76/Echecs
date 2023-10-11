@@ -47,19 +47,44 @@ public class PanelJeu extends JPanel
 					g.fillRect(100 + i*100, 100 + j*100, 100, 100);
 				}
 
+				// Entourer la pièce sélectionnée
 				if (this.pieceSelect != null)
 				{
-					g.setColor(Color.green);
-					g.drawOval(125+100*this.pieceSelect.getX(), 125+100*Math.abs(7-this.pieceSelect.getY()), 50, 50);
+					// g.setColor(Color.green);
+					// g.drawOval(125+100*this.pieceSelect.getX(), 125+100*Math.abs(7-this.pieceSelect.getY()), 50, 50);
 
+					// Dessiner les possibilités de déplacement de la pièce sélectionnée
 					g.setColor(Color.lightGray);
-					if (this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false))
+					if (this.pieceSelect.getCouleur() == this.ctrl.getCouleurAJouer() && this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false))
 						g.fillOval(135+100*i, 135+100*j, 30, 30);
 				}
 
-
 				g.setColor(Color.BLACK);
+			}
 
+			g.drawString("" + (char)('A' + i), 137 + i*100, 950);
+		}
+
+		//FIXME: ça met échec qd une piece fait un déplacement qui met échec mm si le déplacement n'est pas possible
+		if (this.ctrl.isRoiEchec(Piece.BLANC))
+		{
+			g.setColor(Color.YELLOW);
+			Roi roi = this.ctrl.getRoi(Piece.NOIR);
+			g.fillOval(125+100*roi.getX(), 125+100*roi.getY(), 50, 50);
+		}
+
+		if (this.ctrl.isRoiEchec(Piece.NOIR))
+		{
+			g.setColor(Color.YELLOW);
+			Roi roi = this.ctrl.getRoi(Piece.BLANC);
+			g.fillOval(125+100*roi.getX(), 125+100*roi.getY(), 50, 50);
+		}
+
+		g.drawRect(100, 100, 800, 800);
+
+		for (int i = 0 ; i < Controleur.TAILLE ; i++)
+			for (int j = 0 ; j < Controleur.TAILLE ; j++)
+			{
 				g.setFont(new Font("", Font.PLAIN, 40));
 
 				Piece p = this.ctrl.getPiece(i, Math.abs(7-j));
@@ -75,10 +100,6 @@ public class PanelJeu extends JPanel
 				g.setFont(new Font("", Font.PLAIN, 30));
 				if (j == 0) g.drawString("" + (Math.abs(7-i)+1), 50, 162 + i*100);
 			}
-
-			g.drawString("" + (char)('A' + i), 137 + i*100, 950);
-		}
-		g.drawRect(100, 100, 800, 800);
 	}
 
 	public class GereSouris extends MouseAdapter

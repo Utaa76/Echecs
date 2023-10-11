@@ -9,12 +9,14 @@ public class Jeu
 	private Piece[][]        plateau;
 	private ArrayList<Piece> alPiece;
 	private boolean          echecEtMat;
+	private char             couleurAJouer;
 
 	public Jeu()
 	{
-		this.plateau    = new Piece[Jeu.TAILLE][Jeu.TAILLE];
-		this.alPiece    = new ArrayList<>();
-		this.echecEtMat = false;
+		this.plateau       = new Piece[Jeu.TAILLE][Jeu.TAILLE];
+		this.alPiece       = new ArrayList<>();
+		this.echecEtMat    = false;
+		this.couleurAJouer = Piece.BLANC;
 		this.initialiserPieces();
 	}
 
@@ -97,11 +99,13 @@ public class Jeu
 	public boolean deplacer(Piece p, int x, int y)
 	{
 		// System.out.println("deplacement " + p);
-		if (p.peutDeplacer(x, y, false) && !this.echecEtMat)
+		if (p.peutDeplacer(x, y, false) && !this.echecEtMat && p.getCouleur() == this.couleurAJouer)
 		{
 			this.plateau[p.getX()][p.getY()] = null;
 			System.out.println("deplacement " + p + " " + p.deplacer(x, y));
 			this.plateau[x][y] = p;
+
+			this.couleurAJouer = this.couleurAJouer == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
 
 			if (p instanceof Tour && ((Tour)p).roque) return true;
 
@@ -171,6 +175,11 @@ public class Jeu
 			if (p instanceof Roi && p.getCouleur() == couleur) return (Roi)p;
 
 		return null;
+	}
+
+	public char getCouleurAJouer()
+	{
+		return this.couleurAJouer;
 	}
 
 	//TODO: Echec et mat (si un roi est échec, regarder si pour chaque position il est tjrs échec (TODO: la couverture d'échec))
