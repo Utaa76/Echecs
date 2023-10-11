@@ -123,6 +123,7 @@ public class PanelJeu extends JPanel
 			int x = e.getX();
 			int y = e.getY();
 
+			// TODO: changer la piece si elle est de la mm couleur que celle déjà sélect
 			for (int i = 0 ; i < Controleur.TAILLE ; i++)
 				for (int j = 0 ; j < Controleur.TAILLE ; j++)
 					if (this.ensHitbox[i][j].contains(x, y))
