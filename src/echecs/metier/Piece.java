@@ -52,6 +52,7 @@ public abstract class Piece
 
 	public boolean couvreEchec(int x, int y)
 	{
+		// FIXME: le fou ne couvre pas l'échec ??? des fois mmmhh Stronge
 		Piece p = this.jeu.setPlateau(this, x, y);
 
 		Roi roi = this.jeu.getRoi(this.couleur);
