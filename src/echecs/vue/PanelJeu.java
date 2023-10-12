@@ -60,27 +60,27 @@ public class PanelJeu extends JPanel
 				}
 
 				g.setColor(Color.BLACK);
+				g.setFont(new Font("", Font.PLAIN, 30));
+				if (j == 0) g.drawString("" + (Math.abs(7-i)+1), 50, 162 + i*100);
 			}
 
 			g.drawString("" + (char)('A' + i), 137 + i*100, 950);
 		}
 
 		//FIXME: ça met échec qd une piece fait un déplacement qui met échec mm si le déplacement n'est pas possible
-		if (this.ctrl.isRoiEchec(Piece.BLANC))
+		Roi roi = this.ctrl.getRoi(Piece.BLANC);
+		if (roi.isEchec())
 		{
 			g.setColor(Color.YELLOW);
-			Roi roi = this.ctrl.getRoi(Piece.NOIR);
-			g.fillOval(125+100*roi.getX(), 125+100*roi.getY(), 50, 50);
+			g.fillOval(125+100*roi.getX(), 125+100*Math.abs(7-roi.getY()), 50, 50);
 		}
 
-		if (this.ctrl.isRoiEchec(Piece.NOIR))
+		roi = this.ctrl.getRoi(Piece.NOIR);
+		if (roi.isEchec())
 		{
 			g.setColor(Color.YELLOW);
-			Roi roi = this.ctrl.getRoi(Piece.BLANC);
-			g.fillOval(125+100*roi.getX(), 125+100*roi.getY(), 50, 50);
+			g.fillOval(125+100*roi.getX(), 125+100*Math.abs(7-roi.getY()), 50, 50);
 		}
-
-		g.drawRect(100, 100, 800, 800);
 
 		for (int i = 0 ; i < Controleur.TAILLE ; i++)
 			for (int j = 0 ; j < Controleur.TAILLE ; j++)
@@ -96,10 +96,9 @@ public class PanelJeu extends JPanel
 				}
 
 				g.setColor(Color.BLACK);
-
-				g.setFont(new Font("", Font.PLAIN, 30));
-				if (j == 0) g.drawString("" + (Math.abs(7-i)+1), 50, 162 + i*100);
 			}
+
+		g.drawRect(100, 100, 800, 800);
 	}
 
 	public class GereSouris extends MouseAdapter
@@ -129,12 +128,23 @@ public class PanelJeu extends JPanel
 					if (this.ensHitbox[i][j].contains(x, y))
 					{
 						System.out.println("i:" + i + " j:" + j);
-						Piece p = PanelJeu.this.ctrl.getPiece(i, j);;
-						if      (PanelJeu.this.pieceSelect == null && p != null) PanelJeu.this.pieceSelect = p;
+
+						Piece p = PanelJeu.this.ctrl.getPiece(i, j);
+
+						System.out.println("pieceSelect = " + PanelJeu.this.pieceSelect);
+						System.out.println("p = " + p);
+						if      (PanelJeu.this.pieceSelect == null && p != null && p.getCouleur() == PanelJeu.this.ctrl.getCouleurAJouer()) PanelJeu.this.pieceSelect = p;
 						else if (PanelJeu.this.pieceSelect != null)
 						{
-							PanelJeu.this.ctrl.deplacer(PanelJeu.this.pieceSelect, i, j);
-							PanelJeu.this.pieceSelect = null;
+							System.out.println("lalala");
+							System.out.println("deplacer : " + PanelJeu.this.ctrl.deplacer(PanelJeu.this.pieceSelect, i, j));
+
+							p = PanelJeu.this.ctrl.getPiece(i, j);
+
+							// if (p == null || p.getCouleur() == PanelJeu.this.pieceSelect.getCouleur()) PanelJeu.this.pieceSelect = p;
+							// else                                                                       PanelJeu.this.pieceSelect = null;
+
+							PanelJeu.this.pieceSelect = p == null || p.getCouleur() == PanelJeu.this.ctrl.getCouleurAJouer() ? p : null;
 						}
 					}
 

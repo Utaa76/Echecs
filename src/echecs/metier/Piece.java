@@ -41,13 +41,13 @@ public abstract class Piece
 		return true;
 	}
 
-	public boolean mangerPiece(int x, int y)
+	public Piece mangerPiece(int x, int y)
 	{
 		Piece p = this.jeu.getPiece(x, y);
-		if (p != null && this.couleur == p.getCouleur()) return false;
+		if (p != null && this.couleur == p.getCouleur()) return null;
 
 		this.jeu.getAlPiece().remove(p);
-		return true;
+		return p;
 	}
 
 	public boolean couvreEchec(int x, int y)
@@ -60,8 +60,15 @@ public abstract class Piece
 
 		boolean bRet = !roi.isEchec();
 
-		/*if (!bRet)*/ this.jeu.setPlateau(p, x, y);
+		this.jeu.setPlateau(p, x, y);
+
+		// Piece pMange = this.mangerPiece(x, y);
+		// if (pMange != null) this.jeu.getAlPiece().add(pMange);
+
 		roi.setEchec(true);
+
+		if (bRet)
+			System.out.println("bRet = " + bRet + " x:" + x + " y:" + y);
 		return bRet;
 	}
 

@@ -55,8 +55,6 @@ public class Roi extends Piece
 
 		this.mangerPiece(x, y);
 
-		this.alMouvs.add(new Mouvement(this.x, this.y, x, y));
-
 		if (this.aRoque)
 		{
 			System.out.println("JE SUIS RENTRE ");
