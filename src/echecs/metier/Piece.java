@@ -62,8 +62,8 @@ public abstract class Piece
 
 		this.jeu.setPlateau(p, x, y);
 
-		// Piece pMange = this.mangerPiece(x, y);
-		// if (pMange != null) this.jeu.getAlPiece().add(pMange);
+		Piece pMange = this.mangerPiece(x, y);
+		if (pMange != null) this.jeu.getAlPiece().add(pMange);
 
 		roi.setEchec(true);
 
