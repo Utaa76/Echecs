@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import echecs.Controleur;
@@ -36,6 +37,9 @@ public class PanelJeu extends JPanel
 		{
 			for (int j = 0 ; j < Controleur.TAILLE ; j++)
 			{
+				ImageIcon image = new ImageIcon(this.ctrl.getImage(i, j));
+				g.drawImage(image, 0, 0, 50, 50, null);
+
 				if ((i+j)%2==0)
 				{
 					g.setColor(Color.WHITE);

@@ -67,6 +67,15 @@ public class Controleur
 		return this.metier.getRoi(couleur);
 	}
 
+	public String getImage(int i, int j)
+	{
+		Piece p = this.metier.getPiece(i, j);
+		
+		if (p == null) return "";
+
+		return "/src/images/" + p.getClass().getSimpleName().toLowerCase() + "_" + p.getCouleur() + ".png";
+	}
+
 	public static void main(String[] args)
 	{
 		new Controleur();
