@@ -73,7 +73,10 @@ public class Controleur
 		
 		if (p == null) return "";
 
-		return "/src/images/" + p.getClass().getSimpleName().toLowerCase() + "_" + p.getCouleur() + ".png";
+		System.out.println("/images/" + p.getClass().getSimpleName().toLowerCase() + "_" + p.getCouleur() + ".png");
+		return "./images/" + p.getClass().getSimpleName().toLowerCase() + "_" + p.getCouleur() + ".png";
+		// C:\Users\yanis\Desktop\Programmation Perso\GitHub\Echecs\src\echecs\Controleur.java
+		// C:\Users\yanis\Desktop\Programmation Perso\GitHub\Echecs\images
 	}
 
 	public static void main(String[] args)
