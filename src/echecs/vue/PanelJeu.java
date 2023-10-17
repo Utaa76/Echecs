@@ -95,25 +95,11 @@ public class PanelJeu extends JPanel
 			for (int j = 0 ; j < Controleur.TAILLE ; j++)
 			{
 				ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(i, j)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
-				// Piece p = this.ctrl.getPiece(i, Math.abs(7-j));
-
-				// if (p != null)
-				// {
-				// 	g.setColor  (      p.getCouleur() == 'B' ? Color.BLUE : Color.RED       );
-				// 	g.drawString(("" + p.toString().toUpperCase()), 137 + PanelJeu.TAILLE_CASE*i, 162 + PanelJeu.TAILLE_CASE*j);
-				// }
-
-				// g.setColor(Color.BLACK);
 				imgPiece.paintIcon(this, g, 100 + PanelJeu.TAILLE_CASE*i, 100 + PanelJeu.TAILLE_CASE*Math.abs(7-j));
 			}
 
 		g.setColor(Color.BLACK);
 		g.drawRect(100, 100, 800, 800);
-
-		// ImageIcon image = new ImageIcon(this.ctrl.getImage(0, 0));
-		// Image imgScaled = image.getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT);
-		// ImageIcon imgIcon = new ImageIcon(imgScaled);
-		// imgIcon.paintIcon(this, g, PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE);
 	}
 
 	public class GereSouris extends MouseAdapter
