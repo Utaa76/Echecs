@@ -144,9 +144,10 @@ public class Jeu
 
 		System.out.println("le roi ne peut pas bouger");
 
+		ArrayList<Piece> alPieceCheck = new ArrayList<>(this.alPiece);
 		for (int x = 0 ; x < Jeu.TAILLE ; x++)
 			for (int y = 0 ; y < Jeu.TAILLE ; y++)
-				for (Piece p : this.alPiece)
+				for (Piece p : alPieceCheck)
 					if (p.getCouleur() == couleur && !(p instanceof Roi))
 						if (p.couvreEchec(x, y)){ System.out.println(p + "x:" + x + " y:" + y); return false;}
 

@@ -89,7 +89,7 @@ public class Roi extends Piece
 
 	public void calculEchec()
 	{
-		ArrayList<Piece> alPiece = this.jeu.getAlPiece();
+		ArrayList<Piece> alPiece = new ArrayList<>(this.jeu.getAlPiece());
 
 		for (Piece p : alPiece)
 			if (p.getCouleur() != this.couleur && !(p instanceof Roi) && p.peutDeplacer(this.x, this.y, true))

@@ -91,12 +91,17 @@ public class PanelJeu extends JPanel
 		}
 
 		// Dessiner les pièces
-		for (int i = 0 ; i < Controleur.TAILLE ; i++)
-			for (int j = 0 ; j < Controleur.TAILLE ; j++)
-			{
-				ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(i, j)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
-				imgPiece.paintIcon(this, g, 100 + PanelJeu.TAILLE_CASE*i, 100 + PanelJeu.TAILLE_CASE*Math.abs(7-j));
-			}
+		// for (int i = 0 ; i < Controleur.TAILLE ; i++)
+		// 	for (int j = 0 ; j < Controleur.TAILLE ; j++)
+		// 	{
+		// 		ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(i, j)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
+		// 		imgPiece.paintIcon(this, g, 100 + PanelJeu.TAILLE_CASE*i, 100 + PanelJeu.TAILLE_CASE*Math.abs(7-j));
+		// 	}
+		for (Piece p : this.ctrl.getAlPiece())
+		{
+			ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(p)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
+			imgPiece.paintIcon(this, g, 100 + PanelJeu.TAILLE_CASE*p.getX(), 100 + PanelJeu.TAILLE_CASE*Math.abs(7-p.getY()));
+		}
 
 		g.setColor(Color.BLACK);
 		g.drawRect(100, 100, 800, 800);

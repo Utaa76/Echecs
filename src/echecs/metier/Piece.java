@@ -44,7 +44,7 @@ public abstract class Piece
 	public Piece mangerPiece(int x, int y)
 	{
 		Piece p = this.jeu.getPiece(x, y);
-		if (p != null && this.couleur == p.getCouleur()) return null;
+		if (p != null && this.couleur == p.getCouleur() && p instanceof Roi) return null;
 
 		this.jeu.getAlPiece().remove(p);
 		return p;
@@ -54,7 +54,7 @@ public abstract class Piece
 	{
 		// FIXME: le fou ne couvre pas l'échec ??? des fois mmmhh Stronge
 		Piece p = this.jeu.setPlateau(this, x, y);
-
+		Piece pMange = this.mangerPiece(x, y);
 		Roi roi = this.jeu.getRoi(this.couleur);
 		roi.calculEchec();
 
@@ -62,13 +62,13 @@ public abstract class Piece
 
 		this.jeu.setPlateau(p, x, y);
 
-		// Piece pMange = this.mangerPiece(x, y);
-		// if (pMange != null) this.jeu.getAlPiece().add(pMange);
+		
+		if (pMange != null) this.jeu.getAlPiece().add(pMange);
 
 		roi.setEchec(true);
 
 		if (bRet)
-			System.out.println("bRet = " + bRet + " x:" + x + " y:" + y);
+			System.out.println("Piece = " + this.toString() + " x:" + x + " y:" + y);
 		return bRet;
 	}
 

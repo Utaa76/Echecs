@@ -1,6 +1,10 @@
 package echecs;
 
-import echecs.metier.*;
+import java.util.ArrayList;
+
+import echecs.metier.Jeu;
+import echecs.metier.Piece;
+import echecs.metier.Roi;
 import echecs.vue.FrameJeu;
 
 public class Controleur
@@ -44,6 +48,11 @@ public class Controleur
 		return this.metier.getPiece(x, y);
 	}
 
+	public ArrayList<Piece> getAlPiece()
+	{
+		return this.metier.getAlPiece();
+	}
+
 	public boolean deplacer(Piece p, int x, int y)
 	{
 		if (p != null && x >= 0 && x < Controleur.TAILLE && y >= 0 && y < Controleur.TAILLE)
@@ -71,6 +80,11 @@ public class Controleur
 	{
 		Piece p = this.metier.getPiece(i, j);
 		
+		return this.getImage(p);
+	}
+
+	public String getImage(Piece p)
+	{
 		if (p == null) return "";
 
 		return "./images/" + p.getClass().getSimpleName().toLowerCase() + "_" + p.getCouleur() + ".png";
