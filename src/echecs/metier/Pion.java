@@ -17,20 +17,41 @@ public class Pion extends Piece
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
 		boolean bRet;
-		if (this.couleur == Piece.BLANC)
+		if (this.jeu.plateauRetourne)
 		{
-			if (p == null)
-				bRet = this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y+1) == null;
+			if (this.couleur == Piece.NOIR)
+			{
+				if (p == null)
+					bRet = this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y+1) == null;
+				else
+					bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y+1 == y;
+			}
 			else
-				bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y+1 == y;
+			{
+				if (p == null)
+					bRet = this.x == x && this.y-1 == y || (this.x == x && this.y-2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y-1) == null;
+				else
+					bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y-1 == y;
+			}
 		}
 		else
 		{
-			if (p == null)
-				bRet = this.x == x && this.y-1 == y || (this.x == x && this.y-2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y-1) == null;
+			if (this.couleur == Piece.BLANC)
+			{
+				if (p == null)
+					bRet = this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y+1) == null;
+				else
+					bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y+1 == y;
+			}
 			else
-				bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y-1 == y;
+			{
+				if (p == null)
+					bRet = this.x == x && this.y-1 == y || (this.x == x && this.y-2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y-1) == null;
+				else
+					bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y-1 == y;
+			}
 		}
+		
 
 		if (!bRoi && this.metEchec(x, y)) bRet = false;
 

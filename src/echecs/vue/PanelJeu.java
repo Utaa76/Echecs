@@ -1,6 +1,7 @@
 package echecs.vue;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -27,7 +28,9 @@ public class PanelJeu extends JPanel
 		this.ctrl        = ctrl;
 		this.pieceSelect = null;
 
-		this.addMouseListener(new GereSouris());
+		GereSouris gs = new GereSouris();
+		this.addMouseListener      (gs);
+		this.addMouseMotionListener(gs);
 
 		this.repaint();
 	}
@@ -55,16 +58,11 @@ public class PanelJeu extends JPanel
 					// g.fillRect(100 + i*PanelJeu.TAILLE_CASE, 100 + j*PanelJeu.TAILLE_CASE, 80, 80);
 				}
 
-				// Entourer la pièce sélectionnée
-				if (this.pieceSelect != null)
+				// Afficher les possibilités de déplacement
+				if (this.pieceSelect != null && this.pieceSelect.getCouleur() == this.ctrl.getCouleurAJouer() && this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false))
 				{
-					// g.setColor(Color.green);
-					// g.drawOval(125+100*this.pieceSelect.getX(), 125+100*Math.abs(7-this.pieceSelect.getY()), 50, 50);
-
-					// Dessiner les possibilités de déplacement de la pièce sélectionnée
 					g.setColor(Color.lightGray);
-					if (this.pieceSelect.getCouleur() == this.ctrl.getCouleurAJouer() && this.pieceSelect.peutDeplacer(i, Math.abs(7-j), false))
-						g.fillOval(135+PanelJeu.TAILLE_CASE*i, 135+PanelJeu.TAILLE_CASE*j, 30, 30);
+					g.fillOval(135+PanelJeu.TAILLE_CASE*i, 135+PanelJeu.TAILLE_CASE*j, 30, 30);
 				}
 
 				g.setColor(Color.BLACK);
@@ -91,12 +89,6 @@ public class PanelJeu extends JPanel
 		}
 
 		// Dessiner les pièces
-		// for (int i = 0 ; i < Controleur.TAILLE ; i++)
-		// 	for (int j = 0 ; j < Controleur.TAILLE ; j++)
-		// 	{
-		// 		ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(i, j)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
-		// 		imgPiece.paintIcon(this, g, 100 + PanelJeu.TAILLE_CASE*i, 100 + PanelJeu.TAILLE_CASE*Math.abs(7-j));
-		// 	}
 		for (Piece p : this.ctrl.getAlPiece())
 		{
 			ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(p)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
@@ -105,11 +97,18 @@ public class PanelJeu extends JPanel
 
 		g.setColor(Color.BLACK);
 		g.drawRect(100, 100, 800, 800);
+
+		g.setColor(Color.lightGray);
+		g.fillRect(975, 475, 150, 50);
+		g.setFont(new Font("", Font.PLAIN, 15));
+		g.setColor(Color.BLACK);
+		g.drawString("Retourner le plateau", 985, 505);
 	}
 
 	public class GereSouris extends MouseAdapter
 	{
 		private Rectangle[][] ensHitbox;
+		private Rectangle     hbBtnRetourne;
 
 		public GereSouris()
 		{
@@ -120,7 +119,8 @@ public class PanelJeu extends JPanel
 			for (int i = 0 ; i < Controleur.TAILLE ; i++)
 				for (int j = 0 ; j < Controleur.TAILLE ; j++)
 					this.ensHitbox[i][j] = new Rectangle(100 + i*PanelJeu.TAILLE_CASE, 100 + Math.abs(7-j)*PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE);
-				
+
+			this.hbBtnRetourne = new Rectangle(975, 475, 150, 50);
 		}
 
 		public void mouseClicked(MouseEvent e)
@@ -142,8 +142,7 @@ public class PanelJeu extends JPanel
 						if      (PanelJeu.this.pieceSelect == null && p != null && p.getCouleur() == PanelJeu.this.ctrl.getCouleurAJouer()) PanelJeu.this.pieceSelect = p;
 						else if (PanelJeu.this.pieceSelect != null)
 						{
-							System.out.println("lalala");
-							System.out.println("deplacer : " + PanelJeu.this.ctrl.deplacer(PanelJeu.this.pieceSelect, i, j));
+							System.out.println("deplacer : " + PanelJeu.this.ctrl.deplacer(PanelJeu.this.pieceSelect, i, j) + " couleur " + PanelJeu.this.ctrl.getCouleurAJouer());
 
 							p = PanelJeu.this.ctrl.getPiece(i, j);
 
@@ -154,9 +153,26 @@ public class PanelJeu extends JPanel
 						}
 					}
 
-			System.out.println("roinoirechec : " + PanelJeu.this.ctrl.isRoiEchec(Piece.NOIR));
-			System.out.println("echecetmat " + PanelJeu.this.ctrl.echecEtMat());
+			if (this.hbBtnRetourne.contains(x,y))
+			{
+				System.out.println("test");
+				PanelJeu.this.ctrl.retournerPlateau();
+			}
+
 			PanelJeu.this.repaint();
 		}
+
+		// public void mouseMoved(MouseEvent e)
+		// {
+		// 	int x = e.getX();
+		// 	int y = e.getY();
+		// 	System.out.printf("x:%d y:%d\n", x, y);
+
+		// 	// TODO: changer la piece si elle est de la mm couleur que celle déjà sélect
+		// 	for (int i = 0 ; i < Controleur.TAILLE ; i++)
+		// 		for (int j = 0 ; j < Controleur.TAILLE ; j++)
+		// 			if (this.ensHitbox[i][j].contains(x, y)) PanelJeu.this.setCursor(new Cursor(Cursor.HAND_CURSOR   ));
+		// 			else                                     PanelJeu.this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		// }
 	}
 }

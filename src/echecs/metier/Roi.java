@@ -26,19 +26,39 @@ public class Roi extends Piece
 
 		if (this.alMouvs.isEmpty())
 		{
-			Piece tour = this.jeu.getPiece(x+1, this.y);
-			if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+			if (this.jeu.plateauRetourne)
 			{
-				this.aRoque = true;
-				return true;
-			}
+				Piece tour = this.jeu.getPiece(x+2, this.y);
+				if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+				{
+					this.aRoque = true;
+					return true;
+				}
 
-			tour = this.jeu.getPiece(x-2, this.y);
-			if (this.x-2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+				tour = this.jeu.getPiece(x-1, this.y);
+				if (this.x-2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+				{
+					this.aRoque = true;
+					
+					return true;
+				}
+			}
+			else
 			{
-				this.aRoque = true;
-				
-				return true;
+				Piece tour = this.jeu.getPiece(x+1, this.y);
+				if (this.x+2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+				{
+					this.aRoque = true;
+					return true;
+				}
+
+				tour = this.jeu.getPiece(x-2, this.y);
+				if (this.x-2 == x && this.y == y && tour != null && tour.alMouvs.isEmpty() && this.verifierCheminRoque(x, y))
+				{
+					this.aRoque = true;
+					
+					return true;
+				}
 			}
 		}
 
@@ -60,20 +80,41 @@ public class Roi extends Piece
 			System.out.println("JE SUIS RENTRE ");
 
 			Piece tour;
-			if (x < this.x)
+			if (this.jeu.plateauRetourne)
 			{
-				tour = this.jeu.getPiece(x-2, this.y);
-				((Tour)tour).roque = true;
-				System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x-1, this.y));
-				((Tour)tour).roque = false;
+				if (x < this.x)
+				{
+					tour = this.jeu.getPiece(x-1, this.y);
+					((Tour)tour).roque = true;
+					System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x-1, this.y));
+					((Tour)tour).roque = false;
+				}
+				
+				if (x > this.x)
+				{
+					tour = this.jeu.getPiece(x+2, this.y);
+					((Tour)tour).roque = true;
+					System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x+1, this.y));
+					((Tour)tour).roque = false;
+				}
 			}
-			
-			if (x > this.x)
+			else
 			{
-				tour = this.jeu.getPiece(x+1, this.y);
-				((Tour)tour).roque = true;
-				System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x+1, this.y));
-				((Tour)tour).roque = false;
+				if (x < this.x)
+				{
+					tour = this.jeu.getPiece(x-2, this.y);
+					((Tour)tour).roque = true;
+					System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x-1, this.y));
+					((Tour)tour).roque = false;
+				}
+				
+				if (x > this.x)
+				{
+					tour = this.jeu.getPiece(x+1, this.y);
+					((Tour)tour).roque = true;
+					System.out.println("deplacer tour " + this.jeu.deplacer(tour, this.x+1, this.y));
+					((Tour)tour).roque = false;
+				}
 			}
 
 			this.aRoque = false;

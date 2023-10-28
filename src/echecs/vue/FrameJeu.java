@@ -15,7 +15,7 @@ public class FrameJeu extends JFrame
 		this.ctrl = ctrl;
 
 		this.setName("Echecs");
-		this.setSize(1000,1000);
+		this.setSize(1200,1000);
 		this.setLocationRelativeTo(null);
 
 		this.panelJ = new PanelJeu(this.ctrl);

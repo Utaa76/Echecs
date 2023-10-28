@@ -6,17 +6,19 @@ public class Jeu
 {
 	public static final int TAILLE = 8;
 
-	private Piece[][]        plateau;
-	private ArrayList<Piece> alPiece;
-	private boolean          echecEtMat;
-	private char             couleurAJouer;
+	private Piece[][]          plateau;
+	private ArrayList<Piece>   alPiece;
+	private boolean            echecEtMat;
+	private char               couleurAJouer;
+	protected boolean          plateauRetourne;
 
 	public Jeu()
 	{
-		this.plateau       = new Piece[Jeu.TAILLE][Jeu.TAILLE];
-		this.alPiece       = new ArrayList<>();
-		this.echecEtMat    = false;
-		this.couleurAJouer = Piece.BLANC;
+		this.plateau         = new Piece[Jeu.TAILLE][Jeu.TAILLE];
+		this.alPiece         = new ArrayList<>();
+		this.echecEtMat      = false;
+		this.couleurAJouer   = Piece.BLANC;
+		this.plateauRetourne = false;
 		this.initialiserPieces();
 	}
 
@@ -105,9 +107,10 @@ public class Jeu
 			System.out.println("deplacement " + p + " " + p.deplacer(x, y));
 			this.plateau[x][y] = p;
 
-			this.couleurAJouer = this.couleurAJouer == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
-
+			System.out.println("ouais");
+			
 			if (p instanceof Tour && ((Tour)p).roque) return true;
+			else                                      this.couleurAJouer = this.couleurAJouer == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
 
 			this.getRoi(Piece.BLANC).calculEchec();
 			this.getRoi(Piece.NOIR ).calculEchec();
@@ -183,68 +186,32 @@ public class Jeu
 		return this.couleurAJouer;
 	}
 
-	//TODO: Echec et mat (si un roi est échec, regarder si pour chaque position il est tjrs échec (TODO: la couverture d'échec))
-
-	public static void main(String[] args)
+	public void retournerPlateau()
 	{
-		Jeu j = new Jeu();
-		System.out.println(j);
+		this.plateauRetourne = !this.plateauRetourne;
+		Piece[][] plateauTmp = new Piece[8][8];
+		this.copierPlateau(plateauTmp);
+		for (int i = 0 ; i < this.plateau.length ; i++)
+			for (int j = 0 ; j < this.plateau[i].length ; j++)
+			{
+				System.out.printf("i:%d j:%d\n",i,j);
+				this.plateau[i][j] = plateauTmp[7-i][7-j];
 
-		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(4, 1), 4, 3));
-		System.out.println(j);
+				Piece p = this.plateau[i][j];
+				if (p != null)
+				{
+					p.x = i;
+					p.y = j;
+				}
+			}
 
-		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(3, 0), 5, 2));
-		System.out.println(j);
+		System.out.println(this);
+	}
 
-		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(5, 0), 2, 3));
-		System.out.println(j);
-
-		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(4, 6), 4, 4));
-		System.out.println(j);
-
-		// Déplacement d'un pion
-		System.out.println(j.deplacer(j.getPiece(3, 1), 3, 3));
-		System.out.println(j);
-
-		// Déplacement d'un fou
-		System.out.println(j.deplacer(j.getPiece(2, 0), 6, 4));
-		System.out.println(j);
-
-		// Déplacement du roi
-		System.out.println(j.deplacer(j.getPiece(4, 7), 4, 6));
-		System.out.println(j);
-
-		// Déplacement de la dame NOIRE
-		// System.out.println(j.deplacer(j.getPiece(3, 7), 4, 6));
-		// System.out.println(j);
-
-		// Déplacement de la dame
-		System.out.println(j.deplacer(j.getPiece(5, 2), 5, 6));
-		System.out.println(j);
-
-		System.out.println("-----------\nEchec et mat\n-----------");
-		System.out.println(j.echecEtMat());
-
-		Jeu j2 = new Jeu();
-		System.out.println(j2.deplacer(j2.getPiece(4, 1), 4, 3));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(5, 0), 2, 3));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(3, 0), 5, 2));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(6, 0), 7, 2));
-		System.out.println(j2);
-
-		System.out.println(j2.deplacer(j2.getPiece(4, 0), 6, 0));
-		System.out.println(j2);
-		System.out.println("roiNoirEchec = " + j2.roiEchec(Piece.NOIR));
-		System.out.println("echec et mat = " + j2.echecEtMat());
+	public void copierPlateau(Piece[][] plateauVide)
+	{
+		for (int i = 0 ; i < this.plateau.length ; i++)
+			for (int j = 0 ; j < this.plateau[i].length ; j++)
+				plateauVide[i][j] = this.plateau[i][j];
 	}
 }

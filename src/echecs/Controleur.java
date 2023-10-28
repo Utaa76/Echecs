@@ -76,6 +76,11 @@ public class Controleur
 		return this.metier.getRoi(couleur);
 	}
 
+	public void retournerPlateau()
+	{
+		this.metier.retournerPlateau();
+	}
+
 	public String getImage(int i, int j)
 	{
 		Piece p = this.metier.getPiece(i, j);

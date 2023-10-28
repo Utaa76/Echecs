@@ -7,7 +7,7 @@ public abstract class Piece
 	public static final char BLANC = 'B';
 	public static final char NOIR  = 'N';
 
-	protected int                x;
+	protected int                  x;
 	protected int                  y;
 	protected char                 couleur;
 	protected ArrayList<Mouvement> alMouvs;
