@@ -153,11 +153,7 @@ public class PanelJeu extends JPanel
 						}
 					}
 
-			if (this.hbBtnRetourne.contains(x,y))
-			{
-				System.out.println("test");
-				PanelJeu.this.ctrl.retournerPlateau();
-			}
+			if (this.hbBtnRetourne.contains(x,y)) PanelJeu.this.ctrl.retournerPlateau();
 
 			PanelJeu.this.repaint();
 		}
