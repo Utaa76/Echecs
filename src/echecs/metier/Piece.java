@@ -47,36 +47,40 @@ public abstract class Piece
 		if (p != null && this.couleur == p.getCouleur() && p instanceof Roi) return null;
 
 		this.jeu.getAlPiece().remove(p);
+		this.jeu.alPieceMangees.add(p);
+
 		return p;
 	}
 
+	// FIXME: le fou disparait ou fait crash le programme
 	public boolean couvreEchec(int x, int y)
 	{
-		// FIXME: le fou ne couvre pas l'échec ??? des fois mmmhh Stronge
+		if (this.jeu.getPiece(x, y) instanceof Roi) return false;
 		Piece p = this.jeu.setPlateau(this, x, y);
-		Piece pMange = this.mangerPiece(x, y);
 		Roi roi = this.jeu.getRoi(this.couleur);
+		if (p != null && !(p instanceof Roi)) this.jeu.getAlPiece().remove(p);
 		roi.calculEchec();
 
 		boolean bRet = !roi.isEchec();
 
 		this.jeu.setPlateau(p, x, y);
-
 		
-		if (pMange != null) this.jeu.getAlPiece().add(pMange);
-
 		roi.setEchec(true);
 
 		if (bRet)
 			System.out.println("Piece = " + this.toString() + " x:" + x + " y:" + y);
+
+		if (p != null && !(p instanceof Roi)) this.jeu.getAlPiece().add(p);
 		return bRet;
 	}
 
+	//FIXME: le problème du dessus vient d'ici
 	public boolean metEchec(int x, int y)
 	{
 		boolean bRet;
 
 		Piece p = this.jeu.setPlateau(this, x, y);
+		if (p != null && !(p instanceof Roi)) this.jeu.getAlPiece().remove(p);
 		int xPrev = this.x;
 		int yPrev = this.y;
 
@@ -91,6 +95,7 @@ public abstract class Piece
 		this.x = xPrev;
 		this.y = yPrev;
 		this.jeu.setPlateau(p, x, y);
+		if (p != null && !(p instanceof Roi)) this.jeu.getAlPiece().add(p);
 
 		return bRet;
 	}

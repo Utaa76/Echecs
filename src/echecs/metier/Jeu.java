@@ -6,16 +6,18 @@ public class Jeu
 {
 	public static final int TAILLE = 8;
 
-	private Piece[][]          plateau;
-	private ArrayList<Piece>   alPiece;
-	private boolean            echecEtMat;
-	private char               couleurAJouer;
+	private   Piece[][]         plateau;
+	private   ArrayList<Piece>  alPiece;
+	          ArrayList<Piece>  alPieceMangees;
+	private   boolean           echecEtMat;
+	private   char              couleurAJouer;
 	protected boolean          plateauRetourne;
 
 	public Jeu()
 	{
 		this.plateau         = new Piece[Jeu.TAILLE][Jeu.TAILLE];
 		this.alPiece         = new ArrayList<>();
+		this.alPieceMangees  = new ArrayList<>();
 		this.echecEtMat      = false;
 		this.couleurAJouer   = Piece.BLANC;
 		this.plateauRetourne = false;
@@ -65,7 +67,7 @@ public class Jeu
 
 	Piece setPlateau(Piece p, int x, int y)
 	{
-		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE) return null;
+		if (x < 0 || x > Jeu.TAILLE || y < 0 || y > Jeu.TAILLE && !(this.plateau[x][y] instanceof Roi)) return null;
 
 		Piece pieceAvant = this.plateau[x][y];
 		this.plateau[x][y] = p;
@@ -100,14 +102,10 @@ public class Jeu
 
 	public boolean deplacer(Piece p, int x, int y)
 	{
-		// System.out.println("deplacement " + p);
 		if (p.peutDeplacer(x, y, false) && !this.echecEtMat && p.getCouleur() == this.couleurAJouer)
 		{
 			this.plateau[p.getX()][p.getY()] = null;
-			System.out.println("deplacement " + p + " " + p.deplacer(x, y));
 			this.plateau[x][y] = p;
-
-			System.out.println("ouais");
 			
 			if (p instanceof Tour && ((Tour)p).roque) return true;
 			else                                      this.couleurAJouer = this.couleurAJouer == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
@@ -117,6 +115,7 @@ public class Jeu
 
 			this.echecEtMat = this.echecEtMat();
 			System.out.println(this);
+			System.out.println(alPiece);
 			return true;
 		}
 
@@ -171,6 +170,16 @@ public class Jeu
 	public ArrayList<Piece> getAlPiece()
 	{
 		return this.alPiece;
+	}
+
+	public ArrayList<Piece> getAlPieceMangees()
+	{
+		return this.alPieceMangees;
+	}
+
+	public Piece[][] getPlateau()
+	{
+		return this.plateau;
 	}
 
 	public Roi getRoi(char couleur)

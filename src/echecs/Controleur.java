@@ -53,6 +53,11 @@ public class Controleur
 		return this.metier.getAlPiece();
 	}
 
+	public ArrayList<Piece> getAlPieceMangees()
+	{
+		return this.metier.getAlPieceMangees();
+	}
+
 	public boolean deplacer(Piece p, int x, int y)
 	{
 		if (p != null && x >= 0 && x < Controleur.TAILLE && y >= 0 && y < Controleur.TAILLE)

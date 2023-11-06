@@ -9,10 +9,11 @@ public class Pion extends Piece
 
 	public boolean peutDeplacer(int x, int y, boolean bRoi)
 	{
+		boolean test = false;
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
 		if (!bRoi && this.jeu.roiEchec(this.couleur) && !this.couvreEchec(x, y)) return false;
-
+		
 		Piece p = this.jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;
 
@@ -42,6 +43,8 @@ public class Pion extends Piece
 					bRet = this.x == x && this.y+1 == y || (this.x == x && this.y+2 == y && this.alMouvs.isEmpty()) && this.jeu.getPiece(this.x, this.y+1) == null;
 				else
 					bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y+1 == y;
+
+				if (test) System.out.println("ptit test"  + " x:" + x + " y:" + y);
 			}
 			else
 			{
@@ -51,7 +54,6 @@ public class Pion extends Piece
 					bRet = p.getCouleur() != this.couleur && (this.x+1 == x || this.x-1 == x) && this.y-1 == y;
 			}
 		}
-		
 
 		if (!bRoi && this.metEchec(x, y)) bRet = false;
 

@@ -12,7 +12,7 @@ public class Dame extends Piece
 		//System.out.println("appel de peutDeplacer pour aller en x:" + x + " y:" + y);
 		if (x <  0 && x > Jeu.TAILLE && y <  0 && y > Jeu.TAILLE && this.x == x && this.y == y) return false;
 
-		if (this.jeu.roiEchec(this.couleur) && !this.couvreEchec(x, y) && !bRoi) return false;
+		if (!bRoi && this.jeu.roiEchec(this.couleur) && !this.couvreEchec(x, y)) return false;
 
 		Piece p = jeu.getPiece(x, y);
 		if (p != null && p.getCouleur() == this.couleur) return false;

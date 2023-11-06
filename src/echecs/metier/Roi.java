@@ -130,15 +130,24 @@ public class Roi extends Piece
 
 	public void calculEchec()
 	{
+		// Piece[][] plateau = this.jeu.getPlateau();
+		
+		// for (int i = 0; i < plateau.length; i++)
+		// {
+			// 	for (int j = 0; j < plateau[i].length; j++)
+			// 	{
+				// 		Piece p = plateau[i][j];
 		ArrayList<Piece> alPiece = new ArrayList<>(this.jeu.getAlPiece());
 
 		for (Piece p : alPiece)
-			if (p.getCouleur() != this.couleur && !(p instanceof Roi) && p.peutDeplacer(this.x, this.y, true))
+			if (p != null && p.getCouleur() != this.couleur && !(p instanceof Roi) && p.peutDeplacer(this.x, this.y, true))
 			{
 				this.isEchec = true;
 				// System.out.println("piece qui met echec le roi " + this.couleur + " : " + p.toStringEvolved());
 				return;
 			}
+		// 	}
+		// }
 
 		this.isEchec = false;
 	}
