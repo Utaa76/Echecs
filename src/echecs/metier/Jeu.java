@@ -102,10 +102,18 @@ public class Jeu
 
 	public boolean deplacer(Piece p, int x, int y)
 	{
-		if (p.peutDeplacer(x, y, false) && !this.echecEtMat && p.getCouleur() == this.couleurAJouer)
+		int xPrev = 0, yPrev = 0;
+		if (p != null)
 		{
-			this.plateau[p.getX()][p.getY()] = null;
+			xPrev = p.getX();
+			yPrev = p.getY();
+		}
+
+		if (!this.echecEtMat && p.getCouleur() == this.couleurAJouer && p.deplacer(x, y))
+		{
+			this.plateau[xPrev][yPrev] = null;
 			this.plateau[x][y] = p;
+
 			
 			if (p instanceof Tour && ((Tour)p).roque) return true;
 			else                                      this.couleurAJouer = this.couleurAJouer == Piece.BLANC ? Piece.NOIR : Piece.BLANC;
@@ -116,6 +124,7 @@ public class Jeu
 			this.echecEtMat = this.echecEtMat();
 			System.out.println(this);
 			System.out.println(alPiece);
+			//this.majAlPiece();
 			return true;
 		}
 
@@ -222,5 +231,20 @@ public class Jeu
 		for (int i = 0 ; i < this.plateau.length ; i++)
 			for (int j = 0 ; j < this.plateau[i].length ; j++)
 				plateauVide[i][j] = this.plateau[i][j];
+	}
+
+	void majAlPiece()
+	{
+		this.alPiece.clear();
+
+		for (int i = 0; i < this.plateau.length; i++)
+		{
+			for (int j = 0; j < this.plateau[i].length; j++)
+			{
+				Piece p = this.plateau[i][j];
+
+				if (p != null) this.alPiece.add(p);
+			}
+		}
 	}
 }

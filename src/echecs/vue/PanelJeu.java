@@ -88,6 +88,7 @@ public class PanelJeu extends JPanel
 		// Dessiner les pièces
 		for (Piece p : this.ctrl.getAlPiece())
 		{
+			// System.out.println(p.toStringEvolved());
 			ImageIcon imgPiece = new ImageIcon(new ImageIcon(this.ctrl.getImage(p)).getImage().getScaledInstance(PanelJeu.TAILLE_CASE, PanelJeu.TAILLE_CASE, Image.SCALE_DEFAULT));
 			imgPiece.paintIcon(this, g, 100 + PanelJeu.TAILLE_CASE*p.getX(), 50 + PanelJeu.TAILLE_CASE*Math.abs(7-p.getY()));
 		}
